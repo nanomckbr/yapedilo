@@ -7,569 +7,91 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root{
-      --bg:#f4f7fb;
-      --surface:#ffffff;
-      --surface-2:#f8fafc;
-      --text:#121826;
-      --muted:#6b7280;
-      --primary:#ff6b35;
-      --primary-dark:#e45722;
-      --secondary:#111827;
-      --border:#e5e7eb;
-      --success:#16a34a;
-      --danger:#dc2626;
-      --warning:#f59e0b;
-      --shadow:0 18px 40px rgba(15,23,42,.08);
-      --radius:22px;
-      --radius-sm:16px;
+      --bg:#f4f7fb;--surface:#ffffff;--surface-2:#f8fafc;--text:#121826;--muted:#6b7280;
+      --primary:#ff6b35;--primary-dark:#e45722;--secondary:#111827;--border:#e5e7eb;
+      --success:#16a34a;--danger:#dc2626;--warning:#f59e0b;--shadow:0 18px 40px rgba(15,23,42,.08);
+      --radius:22px;--radius-sm:16px;
     }
-
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{
-      font-family:Arial,Helvetica,sans-serif;
-      background:linear-gradient(180deg,#f8fbff 0%,#eef3f9 100%);
-      color:var(--text);
-    }
-    button,input,textarea,select{font:inherit}
-    button{cursor:pointer;border:none}
-    img{display:block;max-width:100%}
-
-    .app{
-      min-height:100vh;
-      display:grid;
-      grid-template-columns:280px 1fr;
-    }
-
-    .sidebar{
-      background:#0f172a;
-      color:#fff;
-      padding:22px 18px;
-      position:sticky;
-      top:0;
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:6px 4px 14px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .brand-badge{
-      width:46px;height:46px;border-radius:14px;
-      display:grid;place-items:center;
-      background:linear-gradient(135deg,#ff6b35 0%,#ff8c61 100%);
-      font-weight:800;
-      box-shadow:0 12px 24px rgba(255,107,53,.25);
-      flex-shrink:0;
-    }
-
-    .brand h1{font-size:1.05rem;margin-bottom:4px}
-    .brand p{font-size:.88rem;color:rgba(255,255,255,.7)}
-
-    .side-user{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      padding:14px;
-      display:grid;
-      gap:6px;
-    }
-
-    .side-user small{color:rgba(255,255,255,.65)}
-    .side-user strong{font-size:.98rem}
-
-    .nav{
-      display:grid;
-      gap:8px;
-    }
-
-    .nav button{
-      text-align:left;
-      padding:14px 14px;
-      border-radius:16px;
-      background:transparent;
-      color:#fff;
-      border:1px solid transparent;
-      transition:.18s ease;
-      font-weight:700;
-    }
-
-    .nav button:hover,.nav button.active{
-      background:rgba(255,255,255,.08);
-      border-color:rgba(255,255,255,.08);
-    }
-
-    .side-actions{
-      margin-top:auto;
-      display:grid;
-      gap:10px;
-    }
-
-    .ghost-btn,.logout-btn{
-      padding:13px 14px;
-      border-radius:16px;
-      font-weight:700;
-    }
-
-    .ghost-btn{
-      background:rgba(255,255,255,.08);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .logout-btn{
-      background:#fff;
-      color:#111827;
-    }
-
-    .main{
-      padding:22px;
-      display:grid;
-      gap:18px;
-    }
-
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-
-    .title-box h2{
-      font-size:clamp(1.6rem,3vw,2.2rem);
-      margin-bottom:6px;
-    }
-
-    .title-box p{
-      color:var(--muted);
-      line-height:1.55;
-      max-width:70ch;
-    }
-
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:13px 16px;
-      border-radius:16px;
-      font-weight:700;
-      transition:.2s ease;
-    }
-
-    .btn-primary{
-      background:var(--primary);
-      color:#fff;
-      box-shadow:0 12px 24px rgba(255,107,53,.24);
-    }
-
+    body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f8fbff 0%,#eef3f9 100%);color:var(--text)}
+    button,input,textarea,select{font:inherit} button{cursor:pointer;border:none} img{display:block;max-width:100%}
+    .app{min-height:100vh;display:grid;grid-template-columns:280px 1fr}
+    .sidebar{background:#0f172a;color:#fff;padding:22px 18px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;padding:6px 4px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .brand-badge{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#ff6b35 0%,#ff8c61 100%);font-weight:800;box-shadow:0 12px 24px rgba(255,107,53,.25);flex-shrink:0}
+    .brand h1{font-size:1.05rem;margin-bottom:4px} .brand p{font-size:.88rem;color:rgba(255,255,255,.7)}
+    .side-user{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;display:grid;gap:6px}
+    .side-user small{color:rgba(255,255,255,.65)} .side-user strong{font-size:.98rem}
+    .nav{display:grid;gap:8px}
+    .nav button{text-align:left;padding:14px 14px;border-radius:16px;background:transparent;color:#fff;border:1px solid transparent;transition:.18s ease;font-weight:700}
+    .nav button:hover,.nav button.active{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08)}
+    .side-actions{margin-top:auto;display:grid;gap:10px}
+    .ghost-btn,.logout-btn{padding:13px 14px;border-radius:16px;font-weight:700}
+    .ghost-btn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.08)}
+    .logout-btn{background:#fff;color:#111827}
+    .main{padding:22px;display:grid;gap:18px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+    .title-box h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:6px}
+    .title-box p{color:var(--muted);line-height:1.55;max-width:70ch}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{padding:13px 16px;border-radius:16px;font-weight:700;transition:.2s ease}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 12px 24px rgba(255,107,53,.24)}
     .btn-primary:hover{background:var(--primary-dark)}
-    .btn-secondary{
-      background:#fff;
-      border:1px solid var(--border);
-      color:var(--text);
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#fff 0%,#fff6f1 100%);
-      border:1px solid var(--border);
-      border-radius:28px;
-      padding:24px;
-      box-shadow:var(--shadow);
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:18px;
-      align-items:center;
-    }
-
-    .hero-copy span{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#fff1eb;
-      color:#c2410c;
-      font-weight:700;
-      font-size:.82rem;
-      margin-bottom:14px;
-    }
-
-    .hero-copy h3{
-      font-size:clamp(1.55rem,3vw,2.4rem);
-      line-height:1;
-      margin-bottom:10px;
-    }
-
-    .hero-copy p{
-      color:var(--muted);
-      line-height:1.6;
-      margin-bottom:18px;
-      max-width:60ch;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .mini-stat{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:16px;
-      box-shadow:var(--shadow);
-    }
-
-    .mini-stat span{
-      display:block;
-      color:var(--muted);
-      font-size:.84rem;
-      margin-bottom:6px;
-    }
-
-    .mini-stat strong{
-      font-size:1.1rem;
-      line-height:1.2;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:14px;
-    }
-
-    .card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:22px;
-      padding:18px;
-      box-shadow:var(--shadow);
-    }
-
-    .metric .label{
-      display:block;
-      color:var(--muted);
-      font-size:.84rem;
-      margin-bottom:8px;
-    }
-
-    .metric .value{
-      font-size:1.6rem;
-      font-weight:800;
-      margin-bottom:6px;
-    }
-
-    .metric .sub{
-      color:var(--muted);
-      font-size:.9rem;
-    }
-
-    .section{
-      display:none;
-      gap:16px;
-    }
-
-    .section.active{
-      display:grid;
-    }
-
-    .panel{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:26px;
-      padding:22px;
-      box-shadow:var(--shadow);
-    }
-
-    .panel-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-bottom:18px;
-    }
-
-    .panel-head h3{
-      font-size:1.28rem;
-      margin-bottom:6px;
-    }
-
-    .panel-head p{
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-    .form-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-    }
-
-    .field{
-      display:grid;
-      gap:8px;
-    }
-
-    .field.full{grid-column:1/-1}
-    .field label{
-      font-size:.92rem;
-      font-weight:700;
-    }
-
-    .field input,.field textarea,.field select{
-      width:100%;
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:14px 15px;
-      background:#fff;
-      outline:none;
-    }
-
-    .field textarea{
-      min-height:110px;
-      resize:vertical;
-    }
-
-    .hint{
-      color:var(--muted);
-      font-size:.85rem;
-      line-height:1.45;
-    }
-
-    .actions-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    .hours-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-    }
-
-    .day-card{
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:16px;
-      background:var(--surface-2);
-      display:grid;
-      gap:12px;
-    }
-
-    .day-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
-    }
-
-    .toggle{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:.9rem;
-      color:var(--muted);
-    }
-
-    .day-times{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .list-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-    }
-
-    .item-box{
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:16px;
-      background:#fff;
-      display:grid;
-      gap:10px;
-    }
-
-    .item-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:start;
-    }
-
-    .item-top h4{font-size:1rem}
-    .muted{color:var(--muted)}
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      padding:8px 10px;
-      border-radius:999px;
-      background:#f1f5f9;
-      color:#334155;
-      font-size:.78rem;
-      font-weight:700;
-    }
-
-    .empty{
-      border:1px dashed #cbd5e1;
-      background:#f8fbff;
-      border-radius:22px;
-      padding:24px;
-      text-align:center;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    .preview{
-      background:linear-gradient(180deg,#fff 0%,#fff7f3 100%);
-      border:1px solid var(--border);
-      border-radius:28px;
-      padding:0;
-      overflow:hidden;
-    }
-
-    .preview-top{
-      padding:18px 20px;
-      background:#fff;
-      border-bottom:1px solid var(--border);
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    .preview-hero{
-      padding:22px;
-      display:grid;
-      gap:14px;
-    }
-
-    .preview-store{
-      display:flex;
-      gap:14px;
-      align-items:center;
-    }
-
-    .preview-logo{
-      width:64px;
-      height:64px;
-      border-radius:18px;
-      background:#111827;
-      color:#fff;
-      display:grid;
-      place-items:center;
-      font-weight:800;
-      font-size:1.1rem;
-      overflow:hidden;
-      flex-shrink:0;
-    }
-
-    .preview-logo img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .preview-products{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-      padding:0 22px 22px;
-    }
-
-    .preview-product{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:20px;
-      overflow:hidden;
-    }
-
-    .preview-product-image{
-      aspect-ratio:16/10;
-      background:#f3f4f6;
-      display:grid;
-      place-items:center;
-      color:var(--muted);
-      font-size:.9rem;
-      overflow:hidden;
-    }
-
-    .preview-product-image img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .preview-product-body{
-      padding:14px;
-      display:grid;
-      gap:8px;
-    }
-
-    .inline-badge{
-      display:inline-block;
-      padding:7px 10px;
-      border-radius:999px;
-      background:#fff1eb;
-      color:#c2410c;
-      font-size:.78rem;
-      font-weight:700;
-      width:fit-content;
-    }
-
-    .notice{
-      padding:14px 16px;
-      border-radius:18px;
-      border:1px solid transparent;
-      display:none;
-      line-height:1.5;
-      font-size:.95rem;
-    }
-
-    .notice.show{display:block}
-    .notice.success{background:#ecfdf3;border-color:#ccefd8;color:#166534}
-    .notice.error{background:#fef2f2;border-color:#fecaca;color:#991b1b}
-    .notice.info{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
-
-    .footer-note{
-      color:var(--muted);
-      font-size:.88rem;
-      line-height:1.5;
-    }
-
-    @media (max-width:1180px){
-      .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .hero{grid-template-columns:1fr}
-      .app{grid-template-columns:1fr}
-      .sidebar{
-        position:relative;
-        height:auto;
-      }
-    }
-
-    @media (max-width:760px){
-      .form-grid,.hours-grid,.list-grid,.preview-products{grid-template-columns:1fr}
-      .day-times{grid-template-columns:1fr}
-      .main{padding:16px}
-      .panel{padding:18px}
-    }
+    .btn-secondary{background:#fff;border:1px solid var(--border);color:var(--text)}
+    .hero{background:linear-gradient(135deg,#fff 0%,#fff6f1 100%);border:1px solid var(--border);border-radius:28px;padding:24px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center}
+    .hero-copy span{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff1eb;color:#c2410c;font-weight:700;font-size:.82rem;margin-bottom:14px}
+    .hero-copy h3{font-size:clamp(1.55rem,3vw,2.4rem);line-height:1;margin-bottom:10px}
+    .hero-copy p{color:var(--muted);line-height:1.6;margin-bottom:18px;max-width:60ch}
+    .hero-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mini-stat{background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+    .mini-stat span{display:block;color:var(--muted);font-size:.84rem;margin-bottom:6px}
+    .mini-stat strong{font-size:1.1rem;line-height:1.2}
+    .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+    .metric .label{display:block;color:var(--muted);font-size:.84rem;margin-bottom:8px}
+    .metric .value{font-size:1.6rem;font-weight:800;margin-bottom:6px}
+    .metric .sub{color:var(--muted);font-size:.9rem}
+    .section{display:none;gap:16px}.section.active{display:grid}
+    .panel{background:#fff;border:1px solid var(--border);border-radius:26px;padding:22px;box-shadow:var(--shadow)}
+    .panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+    .panel-head h3{font-size:1.28rem;margin-bottom:6px}.panel-head p{color:var(--muted);line-height:1.55}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .field{display:grid;gap:8px}.field.full{grid-column:1/-1}
+    .field label{font-size:.92rem;font-weight:700}
+    .field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:16px;padding:14px 15px;background:#fff;outline:none}
+    .field textarea{min-height:110px;resize:vertical}
+    .hint{color:var(--muted);font-size:.85rem;line-height:1.45}
+    .actions-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .hours-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .day-card{border:1px solid var(--border);border-radius:20px;padding:16px;background:var(--surface-2);display:grid;gap:12px}
+    .day-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .toggle{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted)}
+    .day-times{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .list-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .item-box{border:1px solid var(--border);border-radius:20px;padding:16px;background:#fff;display:grid;gap:10px}
+    .item-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
+    .item-top h4{font-size:1rem}.muted{color:var(--muted)}
+    .tag{display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;background:#f1f5f9;color:#334155;font-size:.78rem;font-weight:700}
+    .empty{border:1px dashed #cbd5e1;background:#f8fbff;border-radius:22px;padding:24px;text-align:center;color:var(--muted);line-height:1.6}
+    .preview{background:linear-gradient(180deg,#fff 0%,#fff7f3 100%);border:1px solid var(--border);border-radius:28px;padding:0;overflow:hidden}
+    .preview-top{padding:18px 20px;background:#fff;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+    .preview-hero{padding:22px;display:grid;gap:14px}
+    .preview-store{display:flex;gap:14px;align-items:center}
+    .preview-logo{width:64px;height:64px;border-radius:18px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.1rem;overflow:hidden;flex-shrink:0}
+    .preview-logo img{width:100%;height:100%;object-fit:cover}
+    .preview-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 22px 22px}
+    .preview-product{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden}
+    .preview-product-image{aspect-ratio:16/10;background:#f3f4f6;display:grid;place-items:center;color:var(--muted);font-size:.9rem;overflow:hidden}
+    .preview-product-image img{width:100%;height:100%;object-fit:cover}
+    .preview-product-body{padding:14px;display:grid;gap:8px}
+    .inline-badge{display:inline-block;padding:7px 10px;border-radius:999px;background:#fff1eb;color:#c2410c;font-size:.78rem;font-weight:700;width:fit-content}
+    .notice{padding:14px 16px;border-radius:18px;border:1px solid transparent;display:none;line-height:1.5;font-size:.95rem}
+    .notice.show{display:block}.notice.success{background:#ecfdf3;border-color:#ccefd8;color:#166534}
+    .notice.error{background:#fef2f2;border-color:#fecaca;color:#991b1b}.notice.info{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+    .footer-note{color:var(--muted);font-size:.88rem;line-height:1.5}
+    @media (max-width:1180px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}}
+    @media (max-width:760px){.form-grid,.hours-grid,.list-grid,.preview-products{grid-template-columns:1fr}.day-times{grid-template-columns:1fr}.main{padding:16px}.panel{padding:18px}}
   </style>
 </head>
 <body>
@@ -608,31 +130,24 @@
       <div class="topbar">
         <div class="title-box">
           <h2 id="pageTitle">Tu panel visual</h2>
-          <p>
-            Acá cada local carga la información de su negocio y, a partir de esos datos,
-            se construye después su web pública por slug, sin tener que crear un HTML distinto por comercio.
-          </p>
+          <p>Acá cada local carga la información de su negocio y, a partir de esos datos, se construye después su web pública por slug.</p>
         </div>
 
         <div class="top-actions">
           <button class="btn btn-secondary" id="previewWebBtn">Ver futura web</button>
-          <button class="btn btn-primary" id="saveAllBtn">Guardar cambios</button>
+          <button class="btn btn-primary" id="saveAllBtn">Guardar local</button>
         </div>
       </div>
 
       <div class="notice info show" id="globalNotice">
-        Este panel ya conecta con <strong>stores</strong>. Las secciones de horarios, categorías y productos
-        están listas visualmente y preparadas para enlazarse cuando creemos sus tablas en Supabase.
+        El admin ya quedó conectado a <strong>stores</strong>, <strong>categories</strong>, <strong>products</strong> y <strong>store_hours</strong>.
       </div>
 
       <section class="hero">
         <div class="hero-copy">
           <span>Base del sistema multi-local</span>
           <h3>Un solo admin, muchas webs públicas.</h3>
-          <p>
-            Cada negocio entra al mismo panel, carga su información, organiza categorías, productos,
-            horarios y después su local se muestra en una plantilla pública dinámica.
-          </p>
+          <p>Cada negocio entra al mismo panel, carga su información, organiza categorías, productos y horarios, y después su local se muestra en una plantilla pública dinámica.</p>
           <div class="actions-row">
             <button class="btn btn-primary" data-jump="store">Editar mi local</button>
             <button class="btn btn-secondary" data-jump="preview">Ver vista previa</button>
@@ -640,49 +155,18 @@
         </div>
 
         <div class="hero-grid">
-          <div class="mini-stat">
-            <span>Estado de conexión</span>
-            <strong id="authStatus">Verificando sesión...</strong>
-          </div>
-          <div class="mini-stat">
-            <span>Slug público</span>
-            <strong id="storeSlugMini">Pendiente</strong>
-          </div>
-          <div class="mini-stat">
-            <span>Sección principal</span>
-            <strong>Mi local</strong>
-          </div>
-          <div class="mini-stat">
-            <span>Modo</span>
-            <strong>Visual tipo app</strong>
-          </div>
+          <div class="mini-stat"><span>Estado de conexión</span><strong id="authStatus">Verificando sesión...</strong></div>
+          <div class="mini-stat"><span>Slug público</span><strong id="storeSlugMini">Pendiente</strong></div>
+          <div class="mini-stat"><span>Categorías</span><strong id="heroCategories">0</strong></div>
+          <div class="mini-stat"><span>Productos</span><strong id="heroProducts">0</strong></div>
         </div>
       </section>
 
       <section class="cards">
-        <article class="card metric">
-          <span class="label">Nombre del local</span>
-          <div class="value" id="metricStoreName">—</div>
-          <div class="sub">Se carga desde la tabla <strong>stores</strong>.</div>
-        </article>
-
-        <article class="card metric">
-          <span class="label">Slug</span>
-          <div class="value" id="metricSlug">—</div>
-          <div class="sub">Será la URL pública del negocio.</div>
-        </article>
-
-        <article class="card metric">
-          <span class="label">Categorías</span>
-          <div class="value" id="metricCategories">0</div>
-          <div class="sub">Por ahora en modo base visual.</div>
-        </article>
-
-        <article class="card metric">
-          <span class="label">Productos</span>
-          <div class="value" id="metricProducts">0</div>
-          <div class="sub">Después los conectamos a Supabase.</div>
-        </article>
+        <article class="card metric"><span class="label">Nombre del local</span><div class="value" id="metricStoreName">—</div><div class="sub">Se carga desde la tabla <strong>stores</strong>.</div></article>
+        <article class="card metric"><span class="label">Slug</span><div class="value" id="metricSlug">—</div><div class="sub">Será la URL pública del negocio.</div></article>
+        <article class="card metric"><span class="label">Categorías</span><div class="value" id="metricCategories">0</div><div class="sub">Conectadas a Supabase.</div></article>
+        <article class="card metric"><span class="label">Productos</span><div class="value" id="metricProducts">0</div><div class="sub">Conectados a Supabase.</div></article>
       </section>
 
       <section class="section active" id="section-dashboard">
@@ -690,53 +174,38 @@
           <div class="panel-head">
             <div>
               <h3>Resumen del local</h3>
-              <p>Vista rápida de lo que ya está cargado y de lo que falta conectar para completar el sistema.</p>
+              <p>Vista rápida de lo que ya está cargado y de lo que ya quedó enlazado a la base de datos.</p>
             </div>
           </div>
 
           <div class="list-grid">
             <div class="item-box">
               <div class="item-top">
-                <div>
-                  <h4>Datos básicos</h4>
-                  <p class="muted" id="summaryBasic">Todavía no se cargó la información del local.</p>
-                </div>
+                <div><h4>Datos básicos</h4><p class="muted" id="summaryBasic">Todavía no se cargó la información del local.</p></div>
                 <span class="tag">stores</span>
               </div>
-              <div class="footer-note">Esta parte sí está enlazada a Supabase y se puede guardar.</div>
+              <div class="footer-note">Esta parte se guarda directamente sobre tu local.</div>
             </div>
-
             <div class="item-box">
               <div class="item-top">
-                <div>
-                  <h4>Horarios</h4>
-                  <p class="muted">Sección visual lista. Falta tabla para guardar días y horas.</p>
-                </div>
-                <span class="tag">pendiente</span>
+                <div><h4>Horarios</h4><p class="muted" id="summaryHours">Todavía no se cargaron horarios.</p></div>
+                <span class="tag">store_hours</span>
               </div>
-              <div class="footer-note">Después la conectamos con una tabla tipo <strong>store_hours</strong>.</div>
+              <div class="footer-note">Cada día se guarda con apertura, cierre y estado.</div>
             </div>
-
             <div class="item-box">
               <div class="item-top">
-                <div>
-                  <h4>Categorías</h4>
-                  <p class="muted">Se usarán para dividir automáticamente el menú público del local.</p>
-                </div>
-                <span class="tag">pendiente</span>
+                <div><h4>Categorías</h4><p class="muted" id="summaryCategories">Todavía no hay categorías.</p></div>
+                <span class="tag">categories</span>
               </div>
-              <div class="footer-note">La web pública se va a renderizar agrupando productos por categoría.</div>
+              <div class="footer-note">La web pública agrupará el menú por categoría automáticamente.</div>
             </div>
-
             <div class="item-box">
               <div class="item-top">
-                <div>
-                  <h4>Productos</h4>
-                  <p class="muted">Cada producto llevará foto, nombre, precio, estado y categoría.</p>
-                </div>
-                <span class="tag">pendiente</span>
+                <div><h4>Productos</h4><p class="muted" id="summaryProducts">Todavía no hay productos.</p></div>
+                <span class="tag">products</span>
               </div>
-              <div class="footer-note">No hace falta crear un HTML nuevo por local. Solo cambia el contenido.</div>
+              <div class="footer-note">Cada producto podrá mostrarse con foto, precio y descripción.</div>
             </div>
           </div>
         </div>
@@ -747,7 +216,7 @@
           <div class="panel-head">
             <div>
               <h3>Mi local</h3>
-              <p>Esta sección guarda la identidad base del negocio y sí se actualiza en la tabla <strong>stores</strong>.</p>
+              <p>Acá se guarda la identidad base del negocio.</p>
             </div>
           </div>
 
@@ -758,34 +227,27 @@
               <label for="storeName">Nombre del local</label>
               <input id="storeName" type="text" placeholder="Ej: YaPedilo" />
             </div>
-
             <div class="field">
               <label for="storeCategory">Rubro</label>
               <input id="storeCategory" type="text" placeholder="Ej: Pizzería, Hamburguesería..." />
             </div>
-
             <div class="field">
               <label for="storeContact">Contacto</label>
               <input id="storeContact" type="text" placeholder="Teléfono o WhatsApp" />
             </div>
-
             <div class="field">
               <label for="storeAddress">Dirección</label>
               <input id="storeAddress" type="text" placeholder="Dirección del local" />
             </div>
-
             <div class="field">
               <label for="storeSlug">Slug público</label>
               <input id="storeSlug" type="text" placeholder="ya-pedilo" />
               <div class="hint">La futura web pública puede verse como: <strong>/local/tu-slug</strong></div>
             </div>
-
             <div class="field">
               <label for="storeLogoUrl">Logo del local (URL)</label>
               <input id="storeLogoUrl" type="text" placeholder="https://..." />
-              <div class="hint">Por ahora usamos URL. Más adelante podemos integrar subida directa a Storage.</div>
             </div>
-
             <div class="field full">
               <label for="storeDescription">Descripción breve</label>
               <textarea id="storeDescription" placeholder="Texto corto para presentar el local en la web pública..."></textarea>
@@ -804,15 +266,16 @@
           <div class="panel-head">
             <div>
               <h3>Horarios</h3>
-              <p>Base visual para definir qué días abre el local, y en qué horario trabaja.</p>
+              <p>Definí qué días abre el local y en qué horario trabaja.</p>
             </div>
           </div>
 
+          <div class="notice" id="hoursNotice"></div>
           <div class="hours-grid" id="hoursGrid"></div>
 
           <div class="actions-row">
-            <button class="btn btn-primary">Guardar horarios</button>
-            <button class="btn btn-secondary">Aplicar mismo horario a todos</button>
+            <button class="btn btn-primary" id="saveHoursBtn">Guardar horarios</button>
+            <button class="btn btn-secondary" id="copyHoursBtn">Copiar lunes a todos</button>
           </div>
         </div>
       </section>
@@ -822,9 +285,11 @@
           <div class="panel-head">
             <div>
               <h3>Categorías</h3>
-              <p>Estas categorías serán las que armen automáticamente la estructura del menú en la web del local.</p>
+              <p>Estas categorías serán las que armen automáticamente la estructura del menú.</p>
             </div>
           </div>
+
+          <div class="notice" id="categoriesNotice"></div>
 
           <div class="form-grid" style="margin-bottom:16px;">
             <div class="field">
@@ -845,31 +310,29 @@
           <div class="panel-head">
             <div>
               <h3>Productos</h3>
-              <p>Sección visual para preparar cómo cada local cargará su carta: nombre, precio, foto, categoría y estado.</p>
+              <p>Cargá nombre, precio, foto, categoría y descripción.</p>
             </div>
           </div>
+
+          <div class="notice" id="productsNotice"></div>
 
           <div class="form-grid" style="margin-bottom:16px;">
             <div class="field">
               <label for="productName">Nombre del producto</label>
               <input id="productName" type="text" placeholder="Ej: Muzzarella grande" />
             </div>
-
             <div class="field">
               <label for="productPrice">Precio</label>
               <input id="productPrice" type="number" placeholder="Ej: 9500" />
             </div>
-
             <div class="field">
               <label for="productCategory">Categoría</label>
               <select id="productCategory"></select>
             </div>
-
             <div class="field">
               <label for="productImage">Imagen (URL)</label>
               <input id="productImage" type="text" placeholder="https://..." />
             </div>
-
             <div class="field full">
               <label for="productDescription">Descripción</label>
               <textarea id="productDescription" placeholder="Ingredientes, tamaño, extras..."></textarea>
@@ -907,10 +370,7 @@
                   <p class="muted" id="previewStoreMeta">Rubro · Dirección</p>
                 </div>
               </div>
-
-              <p class="muted" id="previewDescription">
-                Acá va la descripción del local cuando la cargues desde el panel.
-              </p>
+              <p class="muted" id="previewDescription">Acá va la descripción del local cuando la cargues desde el panel.</p>
             </div>
 
             <div class="preview-products" id="previewProducts"></div>
@@ -927,22 +387,11 @@
 
     let currentUser = null;
     let currentStore = null;
+    let categories = [];
+    let products = [];
+    let hours = [];
 
-    // Base visual temporal para categorías y productos
-    let categories = ['Pizzas', 'Hamburguesas'];
-    let products = [
-      {
-        name: 'Producto de ejemplo',
-        price: 9500,
-        category: 'Pizzas',
-        image_url: '',
-        description: 'Este bloque es visual. Después lo conectamos a Supabase.'
-      }
-    ];
-
-    const weekdays = [
-      'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'
-    ];
+    const weekdays = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
     const sections = document.querySelectorAll('.section');
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -956,6 +405,11 @@
     const authStatus = document.getElementById('authStatus');
     const storeSlugMini = document.getElementById('storeSlugMini');
     const summaryBasic = document.getElementById('summaryBasic');
+    const summaryHours = document.getElementById('summaryHours');
+    const summaryCategories = document.getElementById('summaryCategories');
+    const summaryProducts = document.getElementById('summaryProducts');
+    const heroCategories = document.getElementById('heroCategories');
+    const heroProducts = document.getElementById('heroProducts');
 
     const storeNameInput = document.getElementById('storeName');
     const storeCategoryInput = document.getElementById('storeCategory');
@@ -965,6 +419,9 @@
     const storeLogoUrlInput = document.getElementById('storeLogoUrl');
     const storeDescriptionInput = document.getElementById('storeDescription');
     const storeNotice = document.getElementById('storeNotice');
+    const hoursNotice = document.getElementById('hoursNotice');
+    const categoriesNotice = document.getElementById('categoriesNotice');
+    const productsNotice = document.getElementById('productsNotice');
 
     function slugify(text) {
       return (text || '')
@@ -994,50 +451,34 @@
 
     function switchSection(key) {
       navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.section === key));
-      sections.forEach(section => {
-        section.classList.toggle('active', section.id === `section-${key}`);
-      });
+      sections.forEach(section => section.classList.toggle('active', section.id === `section-${key}`));
     }
 
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', () => switchSection(btn.dataset.section));
-    });
-
-    document.querySelectorAll('[data-jump]').forEach(btn => {
-      btn.addEventListener('click', () => switchSection(btn.dataset.jump));
-    });
+    navButtons.forEach(btn => btn.addEventListener('click', () => switchSection(btn.dataset.section)));
+    document.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => switchSection(btn.dataset.jump)));
 
     document.getElementById('autoslugBtn').addEventListener('click', () => {
       storeSlugInput.value = slugify(storeNameInput.value);
       refreshPreview();
     });
 
-    document.getElementById('previewWebBtn').addEventListener('click', () => {
-      switchSection('preview');
-    });
-
-    document.getElementById('saveAllBtn').addEventListener('click', () => {
-      switchSection('store');
-      document.getElementById('saveStoreBtn').click();
-    });
+    document.getElementById('previewWebBtn').addEventListener('click', () => switchSection('preview'));
+    document.getElementById('saveAllBtn').addEventListener('click', () => { switchSection('store'); document.getElementById('saveStoreBtn').click(); });
 
     document.getElementById('refreshBtn').addEventListener('click', async () => {
-      await loadStore();
-      renderCategories();
-      renderProducts();
-      refreshPreview();
+      await loadAll();
     });
 
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       await supabaseClient.auth.signOut();
-      window.location.href = 'index_supabase_locales_sin_email_en_stores.html';
+      window.location.href = 'index_supabase_locales_redir_admin_v2.html';
     });
 
     async function requireSession() {
       const { data, error } = await supabaseClient.auth.getUser();
       if (error || !data?.user) {
         authStatus.textContent = 'Sin sesión';
-        window.location.href = 'index_supabase_locales_sin_email_en_stores.html';
+        window.location.href = 'index_supabase_locales_redir_admin_v2.html';
         return null;
       }
       currentUser = data.user;
@@ -1047,8 +488,6 @@
     }
 
     async function loadStore() {
-      if (!currentUser) return;
-
       const { data, error } = await supabaseClient
         .from('stores')
         .select('*')
@@ -1058,8 +497,8 @@
       if (error) {
         currentStore = null;
         userStoreLabelEl.textContent = 'No pudimos cargar tu store';
-        setNotice(globalNotice, 'error', `No se pudo leer <strong>stores</strong>. Error: ${error.message}`);
-        return;
+        setNotice(globalNotice, 'error', `No se pudo leer <strong>stores</strong>: ${error.message}`);
+        return false;
       }
 
       currentStore = data;
@@ -1067,12 +506,10 @@
       metricStoreName.textContent = data?.name || '—';
       metricSlug.textContent = data?.slug || '—';
       storeSlugMini.textContent = data?.slug ? `/local/${data.slug}` : 'Pendiente';
-      summaryBasic.textContent = data
-        ? `${data.name || 'Sin nombre'} · ${data.category || 'Sin rubro'} · ${data.contact || 'Sin contacto'} · ${data.address || 'Sin dirección'}`
-        : 'Todavía no se cargó la información del local.';
-
+      summaryBasic.textContent = `${data.name || 'Sin nombre'} · ${data.category || 'Sin rubro'} · ${data.contact || 'Sin contacto'} · ${data.address || 'Sin dirección'}`;
       fillStoreForm();
       refreshPreview();
+      return true;
     }
 
     function fillStoreForm() {
@@ -1104,21 +541,13 @@
         return;
       }
 
-      if (!payload.slug) {
-        setNotice(storeNotice, 'error', 'No se pudo generar un slug válido.');
-        return;
-      }
-
       const { error } = await supabaseClient
         .from('stores')
         .update(payload)
         .eq('owner_id', currentUser.id);
 
       if (error) {
-        const friendly = error.message.includes('logo_url') || error.message.includes('description')
-          ? 'La tabla <strong>stores</strong> todavía no tiene las columnas <strong>logo_url</strong> y/o <strong>description</strong>. Guardé el admin pensando en esa evolución. Si querés, en el siguiente paso te doy el SQL para agregarlas.'
-          : `No se pudo guardar: ${error.message}`;
-        setNotice(storeNotice, 'error', friendly);
+        setNotice(storeNotice, 'error', `No se pudo guardar: ${error.message}`);
         return;
       }
 
@@ -1128,107 +557,270 @@
 
     document.getElementById('saveStoreBtn').addEventListener('click', saveStore);
 
+    function getDefaultHours() {
+      return weekdays.map((day, index) => ({
+        day_of_week: index,
+        open_time: '19:00',
+        close_time: '00:00',
+        is_open: index !== 0
+      }));
+    }
+
     function renderHours() {
       const grid = document.getElementById('hoursGrid');
       grid.innerHTML = '';
-      weekdays.forEach(day => {
-        const item = document.createElement('div');
-        item.className = 'day-card';
-        item.innerHTML = `
+      const source = hours.length ? [...hours].sort((a,b) => a.day_of_week - b.day_of_week) : getDefaultHours();
+
+      source.forEach(item => {
+        const wrap = document.createElement('div');
+        wrap.className = 'day-card';
+        wrap.innerHTML = `
           <div class="day-top">
-            <strong>${day}</strong>
+            <strong>${weekdays[item.day_of_week]}</strong>
             <label class="toggle">
-              <input type="checkbox" checked />
+              <input type="checkbox" data-day-open="${item.day_of_week}" ${item.is_open ? 'checked' : ''} />
               <span>Abierto</span>
             </label>
           </div>
           <div class="day-times">
             <div class="field">
               <label>Apertura</label>
-              <input type="time" value="19:00" />
+              <input type="time" data-day-start="${item.day_of_week}" value="${item.open_time || '19:00'}" />
             </div>
             <div class="field">
               <label>Cierre</label>
-              <input type="time" value="00:00" />
+              <input type="time" data-day-end="${item.day_of_week}" value="${item.close_time || '00:00'}" />
             </div>
           </div>
         `;
-        grid.appendChild(item);
+        grid.appendChild(wrap);
       });
+
+      summaryHours.textContent = source.filter(x => x.is_open).length
+        ? `${source.filter(x => x.is_open).length} días abiertos cargados.`
+        : 'Todavía no se cargaron horarios.';
+    }
+
+    function collectHoursFromUI() {
+      return weekdays.map((_, day) => ({
+        store_id: currentStore.id,
+        day_of_week: day,
+        is_open: document.querySelector(`[data-day-open="${day}"]`)?.checked ?? false,
+        open_time: document.querySelector(`[data-day-start="${day}"]`)?.value || null,
+        close_time: document.querySelector(`[data-day-end="${day}"]`)?.value || null
+      }));
+    }
+
+    async function loadHours() {
+      if (!currentStore?.id) return;
+      const { data, error } = await supabaseClient
+        .from('store_hours')
+        .select('*')
+        .eq('store_id', currentStore.id)
+        .order('day_of_week', { ascending: true });
+
+      if (error) {
+        hours = [];
+        setNotice(hoursNotice, 'error', `No se pudieron leer los horarios: ${error.message}`);
+      } else {
+        clearNotice(hoursNotice);
+        hours = data || [];
+      }
+
+      renderHours();
+    }
+
+    async function saveHours() {
+      clearNotice(hoursNotice);
+
+      if (!currentStore?.id) {
+        setNotice(hoursNotice, 'error', 'Primero asegurate de tener cargado tu local.');
+        return;
+      }
+
+      const rows = collectHoursFromUI();
+
+      const del = await supabaseClient.from('store_hours').delete().eq('store_id', currentStore.id);
+      if (del.error) {
+        setNotice(hoursNotice, 'error', `No se pudieron limpiar los horarios anteriores: ${del.error.message}`);
+        return;
+      }
+
+      const ins = await supabaseClient.from('store_hours').insert(rows);
+      if (ins.error) {
+        setNotice(hoursNotice, 'error', `No se pudieron guardar los horarios: ${ins.error.message}`);
+        return;
+      }
+
+      setNotice(hoursNotice, 'success', 'Horarios guardados correctamente.');
+      await loadHours();
+    }
+
+    document.getElementById('saveHoursBtn').addEventListener('click', saveHours);
+    document.getElementById('copyHoursBtn').addEventListener('click', () => {
+      const start = document.querySelector('[data-day-start="1"]')?.value || '19:00';
+      const end = document.querySelector('[data-day-end="1"]')?.value || '00:00';
+      const open = document.querySelector('[data-day-open="1"]')?.checked ?? true;
+      weekdays.forEach((_, day) => {
+        const s = document.querySelector(`[data-day-start="${day}"]`);
+        const e = document.querySelector(`[data-day-end="${day}"]`);
+        const o = document.querySelector(`[data-day-open="${day}"]`);
+        if (s) s.value = start;
+        if (e) e.value = end;
+        if (o) o.checked = open;
+      });
+    });
+
+    async function loadCategories() {
+      if (!currentStore?.id) return;
+      const { data, error } = await supabaseClient
+        .from('categories')
+        .select('*')
+        .eq('store_id', currentStore.id)
+        .order('created_at', { ascending: true });
+
+      if (error) {
+        categories = [];
+        setNotice(categoriesNotice, 'error', `No se pudieron leer las categorías: ${error.message}`);
+      } else {
+        clearNotice(categoriesNotice);
+        categories = data || [];
+      }
+
+      renderCategories();
     }
 
     function renderCategories() {
       metricCategories.textContent = String(categories.length);
+      heroCategories.textContent = String(categories.length);
+      summaryCategories.textContent = categories.length
+        ? `${categories.length} categorías cargadas.`
+        : 'Todavía no hay categorías.';
+
       const list = document.getElementById('categoriesList');
       const select = document.getElementById('productCategory');
-
       list.innerHTML = '';
       select.innerHTML = '';
 
       if (!categories.length) {
         list.innerHTML = `<div class="empty">Todavía no cargaste categorías.</div>`;
+        const opt = document.createElement('option');
+        opt.textContent = 'Primero creá una categoría';
+        opt.value = '';
+        select.appendChild(opt);
       } else {
-        categories.forEach((name, index) => {
+        categories.forEach((cat) => {
           const box = document.createElement('div');
           box.className = 'item-box';
           box.innerHTML = `
             <div class="item-top">
               <div>
-                <h4>${name}</h4>
-                <p class="muted">Esta categoría después agrupará productos en la web pública.</p>
+                <h4>${cat.name}</h4>
+                <p class="muted">Esta categoría ordenará el menú público del local.</p>
               </div>
-              <button class="btn btn-secondary" data-remove-category="${index}" style="padding:10px 12px;">Quitar</button>
+              <button class="btn btn-secondary" data-remove-category="${cat.id}" style="padding:10px 12px;">Quitar</button>
             </div>
           `;
           list.appendChild(box);
 
           const opt = document.createElement('option');
-          opt.value = name;
-          opt.textContent = name;
+          opt.value = cat.id;
+          opt.textContent = cat.name;
           select.appendChild(opt);
         });
       }
 
       document.querySelectorAll('[data-remove-category]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const idx = Number(btn.dataset.removeCategory);
-          categories.splice(idx, 1);
-          products = products.filter(p => p.category !== btn.closest('.item-box').querySelector('h4').textContent);
-          renderCategories();
-          renderProducts();
-          refreshPreview();
+        btn.addEventListener('click', async () => {
+          const id = btn.dataset.removeCategory;
+          const { error } = await supabaseClient.from('categories').delete().eq('id', id);
+          if (error) {
+            setNotice(categoriesNotice, 'error', `No se pudo borrar la categoría: ${error.message}`);
+            return;
+          }
+          setNotice(categoriesNotice, 'success', 'Categoría eliminada.');
+          await loadCategories();
+          await loadProducts();
         });
       });
     }
 
-    document.getElementById('addCategoryBtn').addEventListener('click', () => {
+    document.getElementById('addCategoryBtn').addEventListener('click', async () => {
+      clearNotice(categoriesNotice);
       const input = document.getElementById('newCategoryName');
       const value = input.value.trim();
-      if (!value) return;
-      if (!categories.includes(value)) categories.push(value);
+
+      if (!value) {
+        setNotice(categoriesNotice, 'error', 'Escribí un nombre de categoría.');
+        return;
+      }
+
+      if (!currentStore?.id) {
+        setNotice(categoriesNotice, 'error', 'Primero asegurate de tener cargado tu local.');
+        return;
+      }
+
+      const { error } = await supabaseClient.from('categories').insert({
+        store_id: currentStore.id,
+        name: value
+      });
+
+      if (error) {
+        setNotice(categoriesNotice, 'error', `No se pudo crear la categoría: ${error.message}`);
+        return;
+      }
+
       input.value = '';
-      renderCategories();
-      refreshPreview();
+      setNotice(categoriesNotice, 'success', 'Categoría creada correctamente.');
+      await loadCategories();
     });
+
+    async function loadProducts() {
+      if (!currentStore?.id) return;
+      const { data, error } = await supabaseClient
+        .from('products')
+        .select('*')
+        .eq('store_id', currentStore.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        products = [];
+        setNotice(productsNotice, 'error', `No se pudieron leer los productos: ${error.message}`);
+      } else {
+        clearNotice(productsNotice);
+        products = data || [];
+      }
+
+      renderProducts();
+    }
+
+    function categoryNameById(id) {
+      return categories.find(c => c.id === id)?.name || 'Sin categoría';
+    }
 
     function renderProducts() {
       metricProducts.textContent = String(products.length);
+      heroProducts.textContent = String(products.length);
+      summaryProducts.textContent = products.length
+        ? `${products.length} productos cargados.`
+        : 'Todavía no hay productos.';
+
       const list = document.getElementById('productsList');
       list.innerHTML = '';
 
       if (!products.length) {
         list.innerHTML = `<div class="empty">Todavía no agregaste productos.</div>`;
       } else {
-        products.forEach((product, index) => {
+        products.forEach((product) => {
           const box = document.createElement('div');
           box.className = 'item-box';
           box.innerHTML = `
             <div class="item-top">
               <div>
                 <h4>${product.name}</h4>
-                <p class="muted">${product.category} · ${money(product.price)}</p>
+                <p class="muted">${categoryNameById(product.category_id)} · ${money(product.price)}</p>
               </div>
-              <button class="btn btn-secondary" data-remove-product="${index}" style="padding:10px 12px;">Quitar</button>
+              <button class="btn btn-secondary" data-remove-product="${product.id}" style="padding:10px 12px;">Quitar</button>
             </div>
             <div class="muted">${product.description || 'Sin descripción.'}</div>
             ${product.image_url ? `<div class="tag">Con imagen</div>` : `<div class="tag">Sin imagen</div>`}
@@ -1238,49 +830,73 @@
       }
 
       document.querySelectorAll('[data-remove-product]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const idx = Number(btn.dataset.removeProduct);
-          products.splice(idx, 1);
-          renderProducts();
+        btn.addEventListener('click', async () => {
+          const id = btn.dataset.removeProduct;
+          const { error } = await supabaseClient.from('products').delete().eq('id', id);
+          if (error) {
+            setNotice(productsNotice, 'error', `No se pudo borrar el producto: ${error.message}`);
+            return;
+          }
+          setNotice(productsNotice, 'success', 'Producto eliminado.');
+          await loadProducts();
           refreshPreview();
         });
       });
+
+      refreshPreview();
     }
 
-    document.getElementById('addProductBtn').addEventListener('click', () => {
+    document.getElementById('addProductBtn').addEventListener('click', async () => {
+      clearNotice(productsNotice);
+
       const name = document.getElementById('productName').value.trim();
       const price = document.getElementById('productPrice').value.trim();
-      const category = document.getElementById('productCategory').value;
+      const category_id = document.getElementById('productCategory').value;
       const image_url = document.getElementById('productImage').value.trim();
       const description = document.getElementById('productDescription').value.trim();
 
-      if (!name || !price) return;
+      if (!currentStore?.id) {
+        setNotice(productsNotice, 'error', 'Primero asegurate de tener cargado tu local.');
+        return;
+      }
 
-      products.push({
+      if (!name || !price) {
+        setNotice(productsNotice, 'error', 'El producto necesita al menos nombre y precio.');
+        return;
+      }
+
+      if (!category_id) {
+        setNotice(productsNotice, 'error', 'Primero creá una categoría para asignarle el producto.');
+        return;
+      }
+
+      const { error } = await supabaseClient.from('products').insert({
+        store_id: currentStore.id,
+        category_id,
         name,
         price: Number(price),
-        category,
-        image_url,
-        description
+        image_url: image_url || null,
+        description: description || null
       });
+
+      if (error) {
+        setNotice(productsNotice, 'error', `No se pudo crear el producto: ${error.message}`);
+        return;
+      }
 
       document.getElementById('productName').value = '';
       document.getElementById('productPrice').value = '';
       document.getElementById('productImage').value = '';
       document.getElementById('productDescription').value = '';
 
-      renderProducts();
-      refreshPreview();
+      setNotice(productsNotice, 'success', 'Producto creado correctamente.');
+      await loadProducts();
     });
 
     function initials(name) {
       const clean = (name || '').trim();
       if (!clean) return 'LO';
-      return clean
-        .split(' ')
-        .slice(0,2)
-        .map(x => x[0]?.toUpperCase() || '')
-        .join('');
+      return clean.split(' ').slice(0,2).map(x => x[0]?.toUpperCase() || '').join('');
     }
 
     function refreshPreview() {
@@ -1309,7 +925,7 @@
       const sourceProducts = products.length ? products : [{
         name:'Tu primer producto',
         price:0,
-        category:'Categoría',
+        category_id:null,
         image_url:'',
         description:'Cuando cargues productos reales, aparecerán acá.'
       }];
@@ -1322,7 +938,7 @@
             ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" onerror="this.parentElement.innerHTML='Sin imagen'">` : 'Sin imagen'}
           </div>
           <div class="preview-product-body">
-            <span class="inline-badge">${product.category || 'Categoría'}</span>
+            <span class="inline-badge">${categoryNameById(product.category_id)}</span>
             <h4>${product.name}</h4>
             <p class="muted">${product.description || 'Sin descripción.'}</p>
             <strong>${money(product.price)}</strong>
@@ -1337,16 +953,19 @@
       storeSlugInput, storeLogoUrlInput, storeDescriptionInput
     ].forEach(input => input.addEventListener('input', refreshPreview));
 
-    async function boot() {
-      renderHours();
-      renderCategories();
-      renderProducts();
+    async function loadAll() {
+      const ok = await loadStore();
+      if (!ok) return;
+      await loadCategories();
+      await loadProducts();
+      await loadHours();
       refreshPreview();
+    }
 
+    async function boot() {
       const user = await requireSession();
       if (!user) return;
-
-      await loadStore();
+      await loadAll();
     }
 
     boot();
