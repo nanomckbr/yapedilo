@@ -517,7 +517,7 @@
 
         showStatus(loginStatus, 'Ingreso correcto. Redirigiendo al panel del local...', 'success');
         setTimeout(() => {
-          window.location.href = 'admin.html';
+          window.location.href = 'admin';
         }, 700);
       } catch (error) {
         console.error('Error en login:', error);
@@ -549,7 +549,7 @@
     async function redirectIfLoggedIn() {
       const { data } = await supabase.auth.getSession();
       if (data?.session) {
-        window.location.href = 'admin.html';
+        window.location.href = 'admin';
         return true;
       }
       return false;
