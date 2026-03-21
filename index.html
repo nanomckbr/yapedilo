@@ -383,7 +383,7 @@
           </div>
           <div class="store-actions">
             <a class="btn btn-secondary" href="/${store.slug || ''}">Ver local</a>
-            <button class="btn btn-primary login-shortcut" data-email="${store.email || ''}">Ingresar</button>
+            <button class="btn btn-primary login-shortcut" data-email="">Ingresar</button>
           </div>
         `;
         storesGrid.appendChild(article);
@@ -404,7 +404,7 @@
 
       const { data, error } = await supabase
         .from('stores')
-        .select('id, name, category, contact, address, slug, created_at, email')
+        .select('id, name, category, contact, address, slug, created_at')
         .order('created_at', { ascending: false });
 
       loadingBox.classList.add('hidden');
@@ -478,8 +478,7 @@
           category,
           contact,
           address,
-          slug,
-          email
+          slug
         });
 
         if (insertError) throw insertError;
