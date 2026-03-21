@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plantilla Madre - Pedidos</title>
+  <title>Panel Maestro</title>
   <style>
     :root {
-      --bg: #fff8f1;
+      --bg: #f6f7fb;
       --surface: #ffffff;
-      --surface-2: #fff1e6;
-      --text: #1f1f1f;
-      --muted: #6b6b6b;
-      --primary: #e85d04;
-      --primary-dark: #c24d04;
-      --accent: #ffba08;
-      --success: #1f9d55;
-      --danger: #d62828;
-      --border: #f0dccb;
-      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      --radius: 18px;
-      --max: 1200px;
+      --surface-2: #f1f3f9;
+      --text: #171717;
+      --muted: #6b7280;
+      --primary: #111827;
+      --accent: #ff6b35;
+      --border: #e5e7eb;
+      --shadow: 0 12px 32px rgba(17, 24, 39, 0.08);
+      --radius: 22px;
+      --max: 1180px;
     }
 
     * {
@@ -28,25 +25,20 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #fff8f1 0%, #fff4ea 100%);
+      background: linear-gradient(180deg, #f8f9fc 0%, #eef2f8 100%);
       color: var(--text);
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    button {
+    button,
+    input {
       font: inherit;
-      border: none;
-      cursor: pointer;
     }
 
     .container {
@@ -55,127 +47,116 @@
     }
 
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 248, 241, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(232, 93, 4, 0.08);
+      padding: 18px 0;
     }
 
     .topbar-inner {
-      min-height: 76px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 16px;
-      padding: 12px 0;
+      flex-wrap: wrap;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
-      min-width: 0;
+      gap: 12px;
     }
 
-    .brand-logo {
-      width: 58px;
-      height: 58px;
-      border-radius: 16px;
-      object-fit: cover;
+    .brand-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      color: white;
+      font-weight: 800;
       box-shadow: var(--shadow);
-      background: #fff;
-      border: 1px solid var(--border);
     }
 
-    .brand-text {
-      min-width: 0;
+    .brand h1 {
+      font-size: 1.05rem;
+      margin-bottom: 2px;
     }
 
-    .brand-text h1 {
-      font-size: 1.1rem;
-      line-height: 1.1;
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .brand p {
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
-    .brand-meta {
+    .top-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      font-size: 0.88rem;
-      color: var(--muted);
     }
 
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #fff;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      font-size: 0.92rem;
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
       font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
     }
 
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--success);
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 10px 24px rgba(255, 107, 53, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
     }
 
     .hero {
-      padding: 22px 0 18px;
+      padding: 12px 0 24px;
     }
 
     .hero-card {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 20px;
-      background: linear-gradient(135deg, #fff 0%, #fff6ef 100%);
+      background: radial-gradient(circle at top left, #ffffff 0%, #f5f7fc 52%, #eef2f8 100%);
       border: 1px solid var(--border);
-      border-radius: 28px;
-      overflow: hidden;
+      border-radius: 32px;
       box-shadow: var(--shadow);
-    }
-
-    .hero-content {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 16px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      width: fit-content;
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
       align-items: center;
+    }
+
+    .hero-copy span {
+      display: inline-block;
       padding: 8px 12px;
       border-radius: 999px;
-      background: #fff1e6;
-      color: var(--primary-dark);
-      font-size: 0.85rem;
+      background: #fff1eb;
+      color: #c2410c;
+      font-size: 0.82rem;
       font-weight: 700;
-      border: 1px solid #ffd2b3;
+      margin-bottom: 16px;
     }
 
-    .hero-content h2 {
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      line-height: 1;
+    .hero-copy h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 0.98;
+      margin-bottom: 14px;
+      max-width: 11ch;
     }
 
-    .hero-content p {
+    .hero-copy p {
       color: var(--muted);
       font-size: 1rem;
-      line-height: 1.55;
-      max-width: 58ch;
+      line-height: 1.65;
+      max-width: 60ch;
+      margin-bottom: 22px;
     }
 
     .hero-actions {
@@ -184,505 +165,253 @@
       flex-wrap: wrap;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 8px 18px rgba(232, 93, 4, 0.28);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: #fff;
-      color: var(--text);
+    .hero-panel {
+      background: white;
       border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: #fff6ef;
-    }
-
-    .hero-image {
-      min-height: 320px;
-      background: #f5d8bf;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .info-strip {
-      padding: 10px 0 18px;
-    }
-
-    .info-grid {
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 14px;
     }
 
-    .info-card {
-      background: #fff;
+    .mini-card {
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 16px;
-      box-shadow: var(--shadow);
+      background: #fafbff;
     }
 
-    .info-card span {
+    .mini-card span {
       display: block;
-      font-size: 0.82rem;
       color: var(--muted);
+      font-size: 0.82rem;
       margin-bottom: 6px;
     }
 
-    .info-card strong {
-      font-size: 0.98rem;
-      line-height: 1.3;
+    .mini-card strong {
+      font-size: 1rem;
     }
 
-    .toolbar {
-      padding: 10px 0 18px;
+    .section {
+      padding: 8px 0 28px;
     }
 
-    .toolbar-inner {
+    .section-head {
       display: flex;
-      gap: 12px;
-      align-items: center;
       justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
 
-    .search-box {
-      flex: 1 1 280px;
-      position: relative;
+    .section-head h3 {
+      font-size: 1.45rem;
+      margin-bottom: 4px;
     }
 
-    .search-box input {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 14px;
+    .section-head p {
+      color: var(--muted);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .search-row input {
+      flex: 1 1 280px;
       padding: 14px 16px;
-      font-size: 0.96rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: white;
       outline: none;
       box-shadow: var(--shadow);
     }
 
-    .search-box input:focus {
-      border-color: #ffb37d;
-    }
-
-    .category-chips {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-
-    .category-chips::-webkit-scrollbar {
-      display: none;
-    }
-
-    .chip {
-      white-space: nowrap;
-      background: #fff;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 16px;
-      border-radius: 999px;
-      font-weight: 700;
-      box-shadow: var(--shadow);
-    }
-
-    .chip.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    .main-layout {
+    .stores-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
-      gap: 20px;
-      padding-bottom: 28px;
-    }
-
-    .section-title {
-      font-size: 1.35rem;
-      margin-bottom: 16px;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
     }
 
-    .product-card {
-      background: #fff;
-      border-radius: 22px;
-      overflow: hidden;
+    .store-card {
+      background: white;
       border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 18px;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
+      gap: 14px;
     }
 
-    .product-image-wrap {
-      position: relative;
-      aspect-ratio: 16 / 11;
-      background: #f6e5d7;
+    .store-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
     }
 
-    .product-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .store-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: #111827;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      flex-shrink: 0;
     }
 
-    .promo-tag,
-    .category-tag {
-      position: absolute;
-      top: 12px;
-      border-radius: 999px;
+    .store-meta h4 {
+      font-size: 1.02rem;
+      margin-bottom: 4px;
+    }
+
+    .store-meta p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .store-status {
       padding: 8px 10px;
+      border-radius: 999px;
+      background: #ecfdf3;
+      color: #15803d;
       font-size: 0.78rem;
       font-weight: 700;
-      backdrop-filter: blur(8px);
+      border: 1px solid #ccefd8;
+      white-space: nowrap;
     }
 
-    .promo-tag {
-      left: 12px;
-      background: rgba(232, 93, 4, 0.95);
-      color: #fff;
+    .store-data {
+      display: grid;
+      gap: 10px;
     }
 
-    .category-tag {
-      right: 12px;
-      background: rgba(255, 255, 255, 0.92);
-      color: var(--text);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-    }
-
-    .product-body {
-      padding: 16px;
+    .data-row {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .product-title-row {
-      display: flex;
-      align-items: start;
       justify-content: space-between;
-      gap: 12px;
-    }
-
-    .product-title-row h3 {
-      font-size: 1.06rem;
-      line-height: 1.2;
-    }
-
-    .product-desc {
-      color: var(--muted);
+      gap: 10px;
       font-size: 0.93rem;
-      line-height: 1.45;
-      min-height: 42px;
+      color: var(--muted);
+      border-bottom: 1px dashed #eceff5;
+      padding-bottom: 8px;
     }
 
-    .price-wrap {
+    .data-row strong {
+      color: var(--text);
+    }
+
+    .store-actions {
       display: flex;
-      align-items: end;
       gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .price-now {
-      font-size: 1.18rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-    }
-
-    .price-old {
-      font-size: 0.92rem;
-      color: var(--muted);
-      text-decoration: line-through;
-    }
-
-    .product-actions {
-      display: flex;
-      gap: 10px;
       margin-top: auto;
     }
 
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 8px;
-      background: #fff9f4;
-    }
-
-    .qty-controls button {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      background: #fff;
-      border: 1px solid var(--border);
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .qty-controls span {
-      min-width: 18px;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .add-btn {
+    .store-actions .btn {
       flex: 1;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-weight: 700;
+      text-align: center;
     }
 
-    .add-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    .cart-panel {
-      position: sticky;
-      top: 96px;
-      align-self: start;
-      background: #fff;
+    .empty-box {
+      border: 1px dashed #cbd5e1;
       border-radius: 24px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .cart-header {
-      padding: 18px;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, #fff8f1 0%, #fff 100%);
-    }
-
-    .cart-header h3 {
-      font-size: 1.15rem;
-      margin-bottom: 6px;
-    }
-
-    .cart-header p {
+      background: rgba(255,255,255,0.7);
+      padding: 28px;
+      text-align: center;
       color: var(--muted);
-      font-size: 0.92rem;
     }
 
-    .cart-items {
-      padding: 12px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 360px;
-      overflow: auto;
-    }
-
-    .cart-item {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 12px;
-      background: #fffaf6;
-    }
-
-    .cart-item-top,
-    .cart-item-bottom {
-      display: flex;
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      display: none;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .cart-item-top strong {
-      font-size: 0.95rem;
-    }
-
-    .cart-item-top span,
-    .cart-item-bottom span {
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .cart-summary {
+      justify-content: center;
       padding: 18px;
-      border-top: 1px solid var(--border);
-      display: grid;
-      gap: 10px;
-      background: #fff;
+      z-index: 100;
     }
 
-    .summary-row {
+    .modal.show {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 0.95rem;
     }
 
-    .summary-row.total {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-      padding-top: 4px;
-    }
-
-    .customer-box {
-      padding: 0 18px 18px;
+    .modal-card {
+      width: min(100%, 540px);
+      background: white;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
       display: grid;
-      gap: 10px;
+      gap: 14px;
     }
 
-    .customer-box input,
-    .customer-box textarea {
+    .modal-card h4 {
+      font-size: 1.35rem;
+    }
+
+    .modal-card p {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form-grid input {
       width: 100%;
-      padding: 13px 14px;
+      padding: 14px 15px;
+      border-radius: 16px;
       border: 1px solid var(--border);
-      border-radius: 14px;
       outline: none;
       background: #fff;
-      resize: vertical;
-      min-height: 48px;
     }
 
-    .checkout-btn {
-      width: 100%;
-      padding: 14px;
-      border-radius: 16px;
-      background: #25d366;
-      color: #fff;
-      font-weight: 800;
-      font-size: 1rem;
-      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.22);
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 28px 18px;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .footer {
-      padding: 12px 0 28px;
-    }
-
-    .footer-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 18px;
+    .modal-actions {
       display: flex;
-      justify-content: space-between;
-      gap: 16px;
+      gap: 10px;
+      justify-content: end;
       flex-wrap: wrap;
-      box-shadow: var(--shadow);
+      margin-top: 4px;
     }
 
-    .footer-card small {
-      color: var(--muted);
-      line-height: 1.5;
-      display: block;
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 22px;
-      transform: translateX(-50%) translateY(20px);
-      background: #1f1f1f;
-      color: #fff;
-      padding: 12px 16px;
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.25s ease;
-      z-index: 100;
-      font-size: 0.92rem;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    @media (max-width: 1080px) {
-      .main-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .cart-panel {
-        position: static;
-      }
-    }
-
-    @media (max-width: 860px) {
+    @media (max-width: 980px) {
       .hero-card,
-      .info-grid,
-      .products-grid {
+      .stores-grid {
         grid-template-columns: 1fr;
-      }
-
-      .hero-image {
-        min-height: 240px;
       }
     }
 
-    @media (max-width: 620px) {
-      .topbar-inner {
-        align-items: flex-start;
+    @media (max-width: 640px) {
+      .hero-card {
+        padding: 24px;
+      }
+
+      .hero-copy h2 {
+        max-width: none;
+      }
+
+      .top-actions,
+      .hero-actions,
+      .store-actions,
+      .modal-actions {
         flex-direction: column;
       }
 
-      .brand {
-        width: 100%;
-      }
-
-      .status-pill {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero-content {
-        padding: 22px;
-      }
-
-      .product-actions {
-        flex-direction: column;
-      }
-
-      .add-btn {
+      .store-actions .btn,
+      .modal-actions .btn {
         width: 100%;
       }
     }
@@ -692,428 +421,213 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
-        <img
-          class="brand-logo"
-          src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80"
-          alt="Logo del local"
-          id="storeLogo"
-        />
-        <div class="brand-text">
-          <h1 id="storeName">Sabor de Barrio</h1>
-          <div class="brand-meta">
-            <span id="storeType">Hamburguesas · Pizzas · Lomitos</span>
-            <span id="storeDelivery">Delivery estimado: 35-50 min</span>
-          </div>
+        <div class="brand-badge">PM</div>
+        <div>
+          <h1>Panel Maestro</h1>
+          <p>Sistema madre para registrar y administrar locales</p>
         </div>
       </div>
 
-      <div class="status-pill" id="storeStatusPill">
-        <span class="status-dot"></span>
-        <span id="storeStatusText">Abierto ahora</span>
+      <div class="top-actions">
+        <button class="btn btn-secondary" id="loginBtn">Ingresar</button>
+        <button class="btn btn-primary" id="openRegisterBtn">Registrar local</button>
       </div>
     </div>
   </header>
 
   <main>
     <section class="hero">
+      <div class="container hero-card">
+        <div class="hero-copy">
+          <span>Inicio del sistema</span>
+          <h2>Tu plataforma para locales de comida.</h2>
+          <p>
+            Esta página principal no vende comida ni muestra un menú. Su función es simple:
+            permitir el registro de nuevos locales, el ingreso de cada negocio y mostrar abajo
+            los locales ya cargados dentro del sistema.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="openRegisterBtn2">Quiero registrar mi local</button>
+            <button class="btn btn-secondary" id="goStoresBtn">Ver locales</button>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="mini-card">
+            <span>Qué hace esta página</span>
+            <strong>Registro + login + listado de locales</strong>
+          </div>
+          <div class="mini-card">
+            <span>Qué no hace</span>
+            <strong>No muestra menú ni productos todavía</strong>
+          </div>
+          <div class="mini-card">
+            <span>Siguiente conexión</span>
+            <strong>Después se enchufa a Supabase para guardar locales reales</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="storesSection">
       <div class="container">
-        <div class="hero-card">
-          <div class="hero-content">
-            <span class="hero-badge">Plantilla madre multi-local</span>
-            <h2 id="heroTitle">Comida que entra por los ojos y vuelve por antojo.</h2>
-            <p id="heroDescription">
-              Página base pensada para cualquier rotisería, pizzería o local gastronómico.
-              Visual, clara y lista para conectarse después con Supabase y datos reales.
-            </p>
-
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#menu">Ver menú</a>
-              <a class="btn btn-secondary" href="#infoLocal">Info del local</a>
-            </div>
-          </div>
-
-          <div class="hero-image">
-            <img
-              src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80"
-              alt="Imagen principal del local"
-              id="heroImage"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="info-strip" id="infoLocal">
-      <div class="container info-grid">
-        <article class="info-card">
-          <span>Dirección</span>
-          <strong id="storeAddress">Av. Principal 123, Virasoro</strong>
-        </article>
-        <article class="info-card">
-          <span>Horarios</span>
-          <strong id="storeHours">Lun a Dom · 19:00 a 00:30</strong>
-        </article>
-        <article class="info-card">
-          <span>WhatsApp</span>
-          <strong id="storePhone">+54 9 3722 00-0000</strong>
-        </article>
-        <article class="info-card">
-          <span>Promoción destacada</span>
-          <strong id="storePromo">2 hamburguesas + papas</strong>
-        </article>
-      </div>
-    </section>
-
-    <section class="toolbar">
-      <div class="container toolbar-inner">
-        <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Buscar productos..." />
-        </div>
-
-        <div class="category-chips" id="categoryChips">
-          <button class="chip active" data-category="todos">Todos</button>
-          <button class="chip" data-category="hamburguesas">Hamburguesas</button>
-          <button class="chip" data-category="pizzas">Pizzas</button>
-          <button class="chip" data-category="lomitos">Lomitos</button>
-          <button class="chip" data-category="empanadas">Empanadas</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="container main-layout" id="menu">
-      <div>
-        <h2 class="section-title">Menú destacado</h2>
-
-        <div class="products-grid" id="productsGrid">
-          <!-- PRODUCTO 1 -->
-          <article class="product-card" data-category="hamburguesas" data-name="hamburguesa doble cheddar">
-            <div class="product-image-wrap">
-              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80" alt="Hamburguesa doble cheddar" />
-              <span class="promo-tag">Promo</span>
-              <span class="category-tag">Hamburguesas</span>
-            </div>
-            <div class="product-body">
-              <div class="product-title-row">
-                <h3>Hamburguesa Doble Cheddar</h3>
-              </div>
-              <p class="product-desc">Doble medallón, cheddar, panceta, cebolla grillada y salsa especial de la casa.</p>
-              <div class="price-wrap">
-                <span class="price-now">$8.900</span>
-                <span class="price-old">$10.200</span>
-              </div>
-              <div class="product-actions">
-                <div class="qty-controls">
-                  <button type="button" class="qty-minus">−</button>
-                  <span class="qty-value">1</span>
-                  <button type="button" class="qty-plus">+</button>
-                </div>
-                <button class="add-btn" data-name="Hamburguesa Doble Cheddar" data-price="8900">Agregar</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- PRODUCTO 2 -->
-          <article class="product-card" data-category="pizzas" data-name="pizza muzzarella especial">
-            <div class="product-image-wrap">
-              <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80" alt="Pizza muzzarella especial" />
-              <span class="category-tag">Pizzas</span>
-            </div>
-            <div class="product-body">
-              <div class="product-title-row">
-                <h3>Pizza Muzzarella Especial</h3>
-              </div>
-              <p class="product-desc">Masa casera, salsa italiana, muzzarella, aceitunas y toque de orégano fresco.</p>
-              <div class="price-wrap">
-                <span class="price-now">$9.500</span>
-              </div>
-              <div class="product-actions">
-                <div class="qty-controls">
-                  <button type="button" class="qty-minus">−</button>
-                  <span class="qty-value">1</span>
-                  <button type="button" class="qty-plus">+</button>
-                </div>
-                <button class="add-btn" data-name="Pizza Muzzarella Especial" data-price="9500">Agregar</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- PRODUCTO 3 -->
-          <article class="product-card" data-category="lomitos" data-name="lomito completo">
-            <div class="product-image-wrap">
-              <img src="https://images.unsplash.com/photo-1521302200778-33500795e128?auto=format&fit=crop&w=1200&q=80" alt="Lomito completo" />
-              <span class="promo-tag">Sale</span>
-              <span class="category-tag">Lomitos</span>
-            </div>
-            <div class="product-body">
-              <div class="product-title-row">
-                <h3>Lomito Completo</h3>
-              </div>
-              <p class="product-desc">Pan tostado, lomo tierno, jamón, queso, huevo, lechuga, tomate y mayonesa.</p>
-              <div class="price-wrap">
-                <span class="price-now">$11.300</span>
-                <span class="price-old">$12.000</span>
-              </div>
-              <div class="product-actions">
-                <div class="qty-controls">
-                  <button type="button" class="qty-minus">−</button>
-                  <span class="qty-value">1</span>
-                  <button type="button" class="qty-plus">+</button>
-                </div>
-                <button class="add-btn" data-name="Lomito Completo" data-price="11300">Agregar</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- PRODUCTO 4 -->
-          <article class="product-card" data-category="empanadas" data-name="empanadas criollas">
-            <div class="product-image-wrap">
-              <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=1200&q=80" alt="Empanadas criollas" />
-              <span class="category-tag">Empanadas</span>
-            </div>
-            <div class="product-body">
-              <div class="product-title-row">
-                <h3>Empanadas Criollas x12</h3>
-              </div>
-              <p class="product-desc">Docena surtida con carne, jamón y queso, pollo y caprese. Hechas al horno.</p>
-              <div class="price-wrap">
-                <span class="price-now">$10.800</span>
-              </div>
-              <div class="product-actions">
-                <div class="qty-controls">
-                  <button type="button" class="qty-minus">−</button>
-                  <span class="qty-value">1</span>
-                  <button type="button" class="qty-plus">+</button>
-                </div>
-                <button class="add-btn" data-name="Empanadas Criollas x12" data-price="10800">Agregar</button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <aside class="cart-panel">
-        <div class="cart-header">
-          <h3>Tu pedido</h3>
-          <p>Este bloque después se conectará a Supabase y WhatsApp.</p>
-        </div>
-
-        <div class="cart-items" id="cartItems">
-          <div class="empty-state" id="emptyCartState">Todavía no agregaste nada. Elegí algo rico y aparece acá.</div>
-        </div>
-
-        <div class="cart-summary">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <strong id="subtotalPrice">$0</strong>
-          </div>
-          <div class="summary-row">
-            <span>Envío estimado</span>
-            <strong id="deliveryPrice">$1.500</strong>
-          </div>
-          <div class="summary-row total">
-            <span>Total</span>
-            <strong id="totalPrice">$1.500</strong>
-          </div>
-        </div>
-
-        <div class="customer-box">
-          <input type="text" id="customerName" placeholder="Tu nombre" />
-          <input type="text" id="customerPhone" placeholder="Tu teléfono" />
-          <textarea id="customerNotes" placeholder="Aclaraciones del pedido (sin cebolla, efectivo, etc.)"></textarea>
-          <button class="checkout-btn" id="checkoutBtn">Enviar por WhatsApp</button>
-        </div>
-      </aside>
-    </section>
-
-    <section class="footer">
-      <div class="container">
-        <div class="footer-card">
+        <div class="section-head">
           <div>
-            <strong id="footerStoreName">Sabor de Barrio</strong>
-            <small>
-              Plantilla madre pensada para convertirse en una web dinámica por local.
-              Después acá pueden entrar datos reales desde Supabase.
-            </small>
+            <h3>Locales registrados</h3>
+            <p>Estos aparecerán acá cuando vos los apruebes o cuando se registren en el sistema.</p>
           </div>
-          <div>
-            <small id="footerMeta">
-              Estructura ideal para conectar con: stores, categories, products, orders,
-              order_items y store_settings.
-            </small>
-          </div>
+        </div>
+
+        <div class="search-row">
+          <input type="text" id="searchInput" placeholder="Buscar por nombre, rubro o ciudad..." />
+        </div>
+
+        <div class="stores-grid" id="storesGrid">
+          <article class="store-card" data-name="sabor de barrio hamburguesas virasoro">
+            <div class="store-top">
+              <div style="display:flex; gap:12px; align-items:start; min-width:0;">
+                <div class="store-avatar">SB</div>
+                <div class="store-meta">
+                  <h4>Sabor de Barrio</h4>
+                  <p>Hamburguesas · Virasoro</p>
+                </div>
+              </div>
+              <span class="store-status">Activo</span>
+            </div>
+            <div class="store-data">
+              <div class="data-row"><span>Slug</span><strong>/sabor-de-barrio</strong></div>
+              <div class="data-row"><span>Administrador</span><strong>Mariano</strong></div>
+              <div class="data-row"><span>Alta</span><strong>21/03/2026</strong></div>
+            </div>
+            <div class="store-actions">
+              <button class="btn btn-secondary">Ingresar</button>
+              <button class="btn btn-primary">Ver local</button>
+            </div>
+          </article>
+
+          <article class="store-card" data-name="punto pizza pizzería corrientes">
+            <div class="store-top">
+              <div style="display:flex; gap:12px; align-items:start; min-width:0;">
+                <div class="store-avatar">PP</div>
+                <div class="store-meta">
+                  <h4>Punto Pizza</h4>
+                  <p>Pizzería · Corrientes</p>
+                </div>
+              </div>
+              <span class="store-status">Activo</span>
+            </div>
+            <div class="store-data">
+              <div class="data-row"><span>Slug</span><strong>/punto-pizza</strong></div>
+              <div class="data-row"><span>Administrador</span><strong>Ana</strong></div>
+              <div class="data-row"><span>Alta</span><strong>21/03/2026</strong></div>
+            </div>
+            <div class="store-actions">
+              <button class="btn btn-secondary">Ingresar</button>
+              <button class="btn btn-primary">Ver local</button>
+            </div>
+          </article>
+
+          <article class="store-card" data-name="lomitos del centro lomitos posadas">
+            <div class="store-top">
+              <div style="display:flex; gap:12px; align-items:start; min-width:0;">
+                <div class="store-avatar">LC</div>
+                <div class="store-meta">
+                  <h4>Lomitos del Centro</h4>
+                  <p>Lomitos · Posadas</p>
+                </div>
+              </div>
+              <span class="store-status">Activo</span>
+            </div>
+            <div class="store-data">
+              <div class="data-row"><span>Slug</span><strong>/lomitos-del-centro</strong></div>
+              <div class="data-row"><span>Administrador</span><strong>Leo</strong></div>
+              <div class="data-row"><span>Alta</span><strong>21/03/2026</strong></div>
+            </div>
+            <div class="store-actions">
+              <button class="btn btn-secondary">Ingresar</button>
+              <button class="btn btn-primary">Ver local</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="empty-box" id="emptyBox" style="display:none; margin-top:16px;">
+          No hay locales que coincidan con tu búsqueda.
         </div>
       </div>
     </section>
   </main>
 
-  <div class="toast" id="toast">Producto agregado al carrito</div>
+  <div class="modal" id="registerModal">
+    <div class="modal-card">
+      <h4>Registrar nuevo local</h4>
+      <p>
+        Este formulario después se conectará con Supabase para crear el local real.
+        Por ahora sirve para dejar definida la estructura de la pantalla principal.
+      </p>
+      <div class="form-grid">
+        <input type="text" placeholder="Nombre del local" />
+        <input type="text" placeholder="Rubro (pizzería, hamburguesería, etc.)" />
+        <input type="text" placeholder="Ciudad" />
+        <input type="text" placeholder="Nombre del administrador" />
+        <input type="email" placeholder="Correo del administrador" />
+        <input type="password" placeholder="Contraseña" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="closeRegisterBtn">Cancelar</button>
+        <button class="btn btn-primary">Crear local</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const cart = [];
-    const DELIVERY_COST = 1500;
-    const cartItemsEl = document.getElementById('cartItems');
-    const subtotalPriceEl = document.getElementById('subtotalPrice');
-    const totalPriceEl = document.getElementById('totalPrice');
-    const emptyCartState = document.getElementById('emptyCartState');
-    const toast = document.getElementById('toast');
     const searchInput = document.getElementById('searchInput');
-    const chipButtons = document.querySelectorAll('.chip');
-    const productCards = document.querySelectorAll('.product-card');
-    const addButtons = document.querySelectorAll('.add-btn');
-    const checkoutBtn = document.getElementById('checkoutBtn');
+    const storeCards = document.querySelectorAll('.store-card');
+    const emptyBox = document.getElementById('emptyBox');
+    const registerModal = document.getElementById('registerModal');
+    const openRegisterBtn = document.getElementById('openRegisterBtn');
+    const openRegisterBtn2 = document.getElementById('openRegisterBtn2');
+    const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+    const goStoresBtn = document.getElementById('goStoresBtn');
+    const loginBtn = document.getElementById('loginBtn');
 
-    function formatPrice(value) {
-      return `$${value.toLocaleString('es-AR')}`;
-    }
-
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(showToast._timer);
-      showToast._timer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 1800);
-    }
-
-    function renderCart() {
-      cartItemsEl.innerHTML = '';
-
-      if (cart.length === 0) {
-        cartItemsEl.appendChild(emptyCartState);
-        subtotalPriceEl.textContent = formatPrice(0);
-        totalPriceEl.textContent = formatPrice(DELIVERY_COST);
-        return;
-      }
-
-      let subtotal = 0;
-
-      cart.forEach((item, index) => {
-        subtotal += item.price * item.quantity;
-
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `
-          <div class="cart-item-top">
-            <strong>${item.name}</strong>
-            <button type="button" data-remove="${index}" style="background:none;color:#d62828;font-weight:700;">Quitar</button>
-          </div>
-          <div class="cart-item-bottom" style="margin-top:10px;">
-            <span>${item.quantity} x ${formatPrice(item.price)}</span>
-            <strong>${formatPrice(item.price * item.quantity)}</strong>
-          </div>
-        `;
-        cartItemsEl.appendChild(div);
-      });
-
-      subtotalPriceEl.textContent = formatPrice(subtotal);
-      totalPriceEl.textContent = formatPrice(subtotal + DELIVERY_COST);
-
-      cartItemsEl.querySelectorAll('[data-remove]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const index = Number(btn.dataset.remove);
-          cart.splice(index, 1);
-          renderCart();
-          showToast('Producto eliminado');
-        });
-      });
-    }
-
-    document.querySelectorAll('.qty-controls').forEach(control => {
-      const minus = control.querySelector('.qty-minus');
-      const plus = control.querySelector('.qty-plus');
-      const valueEl = control.querySelector('.qty-value');
-
-      minus.addEventListener('click', () => {
-        const current = Number(valueEl.textContent);
-        if (current > 1) valueEl.textContent = current - 1;
-      });
-
-      plus.addEventListener('click', () => {
-        const current = Number(valueEl.textContent);
-        valueEl.textContent = current + 1;
-      });
-    });
-
-    addButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const card = button.closest('.product-card');
-        const qty = Number(card.querySelector('.qty-value').textContent);
-        const name = button.dataset.name;
-        const price = Number(button.dataset.price);
-
-        const existing = cart.find(item => item.name === name && item.price === price);
-        if (existing) {
-          existing.quantity += qty;
-        } else {
-          cart.push({ name, price, quantity: qty });
-        }
-
-        card.querySelector('.qty-value').textContent = '1';
-        renderCart();
-        showToast('Producto agregado al carrito');
-      });
-    });
-
-    chipButtons.forEach(chip => {
-      chip.addEventListener('click', () => {
-        chipButtons.forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        applyFilters();
-      });
-    });
-
-    searchInput.addEventListener('input', applyFilters);
-
-    function applyFilters() {
-      const activeCategory = document.querySelector('.chip.active')?.dataset.category || 'todos';
+    function applySearch() {
       const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
 
-      productCards.forEach(card => {
-        const category = card.dataset.category;
-        const name = card.dataset.name;
-
-        const matchCategory = activeCategory === 'todos' || category === activeCategory;
-        const matchQuery = !query || name.includes(query);
-
-        card.style.display = matchCategory && matchQuery ? '' : 'none';
+      storeCards.forEach(card => {
+        const text = card.dataset.name.toLowerCase();
+        const show = !query || text.includes(query);
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
       });
+
+      emptyBox.style.display = visibleCount === 0 ? '' : 'none';
     }
 
-    checkoutBtn.addEventListener('click', () => {
-      const customerName = document.getElementById('customerName').value.trim();
-      const customerPhone = document.getElementById('customerPhone').value.trim();
-      const customerNotes = document.getElementById('customerNotes').value.trim();
-      const storePhone = '5493722000000';
+    function openRegisterModal() {
+      registerModal.classList.add('show');
+    }
 
-      if (!cart.length) {
-        showToast('Primero agregá productos');
-        return;
-      }
+    function closeRegisterModal() {
+      registerModal.classList.remove('show');
+    }
 
-      const lines = cart.map(item => `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`);
-      const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      const total = subtotal + DELIVERY_COST;
+    searchInput.addEventListener('input', applySearch);
+    openRegisterBtn.addEventListener('click', openRegisterModal);
+    openRegisterBtn2.addEventListener('click', openRegisterModal);
+    closeRegisterBtn.addEventListener('click', closeRegisterModal);
 
-      const message = [
-        'Hola, quiero hacer este pedido:',
-        '',
-        ...lines,
-        '',
-        `Subtotal: ${formatPrice(subtotal)}`,
-        `Envío: ${formatPrice(DELIVERY_COST)}`,
-        `Total: ${formatPrice(total)}`,
-        '',
-        `Nombre: ${customerName || '-'}',`
-      ];
-
-      if (customerPhone) message.push(`Teléfono: ${customerPhone}`);
-      if (customerNotes) message.push(`Notas: ${customerNotes}`);
-
-      const finalMessage = encodeURIComponent(message.join('\n').replace("-',", '-'));
-      window.open(`https://wa.me/${storePhone}?text=${finalMessage}`, '_blank');
+    registerModal.addEventListener('click', (e) => {
+      if (e.target === registerModal) closeRegisterModal();
     });
 
-    renderCart();
+    goStoresBtn.addEventListener('click', () => {
+      document.getElementById('storesSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    loginBtn.addEventListener('click', () => {
+      alert('Acá después irá el login de cada local.');
+    });
   </script>
 </body>
 </html>
