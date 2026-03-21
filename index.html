@@ -17,403 +17,139 @@
       --shadow: 0 12px 32px rgba(17, 24, 39, 0.08);
       --radius: 22px;
       --max: 1180px;
+      --success-bg: #ecfdf3;
+      --success-text: #15803d;
+      --error-bg: #fef2f2;
+      --error-text: #b91c1c;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: linear-gradient(180deg, #f8f9fc 0%, #eef2f8 100%);
       color: var(--text);
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    .container {
-      width: min(100% - 24px, var(--max));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      padding: 18px 0;
-    }
-
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .container { width: min(100% - 24px, var(--max)); margin: 0 auto; }
+    .topbar { padding: 18px 0; }
     .topbar-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .brand { display: flex; align-items: center; gap: 12px; }
     .brand-badge {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: var(--primary);
-      color: white;
-      font-weight: 800;
-      box-shadow: var(--shadow);
+      width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800; box-shadow: var(--shadow);
     }
-
-    .brand h1 {
-      font-size: 1.05rem;
-      margin-bottom: 2px;
+    .brand h1 { font-size: 1.05rem; margin-bottom: 2px; }
+    .brand p { color: var(--muted); font-size: 0.9rem; }
+    .top-actions, .hero-actions, .store-actions, .modal-actions, .section-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
     }
-
-    .brand p {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .top-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
     .btn {
-      border: none;
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s ease;
+      border: none; border-radius: 14px; padding: 12px 16px; font-weight: 700; cursor: pointer; transition: 0.2s ease;
     }
-
     .btn-primary {
-      background: var(--accent);
-      color: white;
-      box-shadow: 0 10px 24px rgba(255, 107, 53, 0.22);
+      background: var(--accent); color: white; box-shadow: 0 10px 24px rgba(255, 107, 53, 0.22);
     }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: white;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .hero {
-      padding: 12px 0 24px;
-    }
-
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-secondary { background: white; border: 1px solid var(--border); color: var(--text); }
+    .btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; }
+    .hero { padding: 12px 0 24px; }
     .hero-card {
       background: radial-gradient(circle at top left, #ffffff 0%, #f5f7fc 52%, #eef2f8 100%);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      box-shadow: var(--shadow);
-      padding: 34px;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
-      align-items: center;
+      border: 1px solid var(--border); border-radius: 32px; box-shadow: var(--shadow); padding: 34px;
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; align-items: center;
     }
-
     .hero-copy span {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #fff1eb;
-      color: #c2410c;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 16px;
+      display: inline-block; padding: 8px 12px; border-radius: 999px; background: #fff1eb;
+      color: #c2410c; font-size: 0.82rem; font-weight: 700; margin-bottom: 16px;
     }
-
     .hero-copy h2 {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      line-height: 0.98;
-      margin-bottom: 14px;
-      max-width: 11ch;
+      font-size: clamp(2rem, 4vw, 3.5rem); line-height: 0.98; margin-bottom: 14px; max-width: 12ch;
     }
-
     .hero-copy p {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.65;
-      max-width: 60ch;
-      margin-bottom: 22px;
+      color: var(--muted); font-size: 1rem; line-height: 1.65; max-width: 60ch; margin-bottom: 22px;
     }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
     .hero-panel {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 14px;
+      background: white; border: 1px solid var(--border); border-radius: 24px; padding: 20px;
+      box-shadow: var(--shadow); display: grid; gap: 14px;
     }
-
     .mini-card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-      background: #fafbff;
+      border: 1px solid var(--border); border-radius: 18px; padding: 16px; background: #fafbff;
     }
-
-    .mini-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-bottom: 6px;
-    }
-
-    .mini-card strong {
-      font-size: 1rem;
-    }
-
-    .section {
-      padding: 8px 0 28px;
-    }
-
+    .mini-card span { display: block; color: var(--muted); font-size: 0.82rem; margin-bottom: 6px; }
+    .mini-card strong { font-size: 1rem; }
+    .section { padding: 8px 0 28px; }
     .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;
     }
-
-    .section-head h3 {
-      font-size: 1.45rem;
-      margin-bottom: 4px;
-    }
-
-    .section-head p {
-      color: var(--muted);
-    }
-
+    .section-head h3 { font-size: 1.45rem; margin-bottom: 4px; }
+    .section-head p { color: var(--muted); }
     .search-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px;
     }
-
-    .search-row input {
-      flex: 1 1 280px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: white;
-      outline: none;
-      box-shadow: var(--shadow);
+    .search-row input, .form-grid input {
+      width: 100%; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border);
+      background: white; outline: none; box-shadow: var(--shadow);
     }
-
-    .stores-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
+    .search-row input { flex: 1 1 280px; }
+    .stores-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
     .store-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      background: white; border: 1px solid var(--border); border-radius: 24px; padding: 18px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 14px;
     }
-
-    .store-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 12px;
-    }
-
+    .store-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
     .store-avatar {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background: #111827;
-      color: white;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 1.05rem;
-      flex-shrink: 0;
+      width: 54px; height: 54px; border-radius: 16px; background: #111827; color: white;
+      display: grid; place-items: center; font-weight: 800; font-size: 1.05rem; flex-shrink: 0;
     }
-
-    .store-meta h4 {
-      font-size: 1.02rem;
-      margin-bottom: 4px;
-    }
-
-    .store-meta p {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
+    .store-meta h4 { font-size: 1.02rem; margin-bottom: 4px; }
+    .store-meta p { color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
     .store-status {
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: #ecfdf3;
-      color: #15803d;
-      font-size: 0.78rem;
-      font-weight: 700;
-      border: 1px solid #ccefd8;
-      white-space: nowrap;
+      padding: 8px 10px; border-radius: 999px; background: #ecfdf3; color: #15803d;
+      font-size: 0.78rem; font-weight: 700; border: 1px solid #ccefd8; white-space: nowrap;
     }
-
-    .store-data {
-      display: grid;
-      gap: 10px;
-    }
-
+    .store-data { display: grid; gap: 10px; }
     .data-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 0.93rem;
-      color: var(--muted);
-      border-bottom: 1px dashed #eceff5;
-      padding-bottom: 8px;
+      display: flex; justify-content: space-between; gap: 10px; font-size: 0.93rem;
+      color: var(--muted); border-bottom: 1px dashed #eceff5; padding-bottom: 8px;
     }
-
-    .data-row strong {
-      color: var(--text);
+    .data-row strong { color: var(--text); }
+    .store-actions .btn { flex: 1; text-align: center; }
+    .empty-box, .loading-box {
+      border: 1px dashed #cbd5e1; border-radius: 24px; background: rgba(255,255,255,0.7);
+      padding: 28px; text-align: center; color: var(--muted);
     }
-
-    .store-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: auto;
-    }
-
-    .store-actions .btn {
-      flex: 1;
-      text-align: center;
-    }
-
-    .empty-box {
-      border: 1px dashed #cbd5e1;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.7);
-      padding: 28px;
-      text-align: center;
-      color: var(--muted);
-    }
-
+    .hidden { display: none !important; }
     .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      z-index: 100;
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); display: none;
+      align-items: center; justify-content: center; padding: 18px; z-index: 100;
     }
-
-    .modal.show {
-      display: flex;
-    }
-
+    .modal.show { display: flex; }
     .modal-card {
-      width: min(100%, 540px);
-      background: white;
-      border-radius: 28px;
-      padding: 24px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
-      display: grid;
-      gap: 14px;
+      width: min(100%, 540px); background: white; border-radius: 28px; padding: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.18); display: grid; gap: 14px;
     }
-
-    .modal-card h4 {
-      font-size: 1.35rem;
+    .modal-card h4 { font-size: 1.35rem; }
+    .modal-card p { color: var(--muted); line-height: 1.55; }
+    .form-grid { display: grid; gap: 12px; }
+    .form-status {
+      display: none; padding: 12px 14px; border-radius: 16px; font-size: 0.92rem; line-height: 1.45;
     }
-
-    .modal-card p {
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .form-grid input {
-      width: 100%;
-      padding: 14px 15px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      outline: none;
-      background: #fff;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: end;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
+    .form-status.show { display: block; }
+    .form-status.success { background: var(--success-bg); color: var(--success-text); border: 1px solid #ccefd8; }
+    .form-status.error { background: var(--error-bg); color: var(--error-text); border: 1px solid #fecaca; }
+    .form-help { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
     @media (max-width: 980px) {
-      .hero-card,
-      .stores-grid {
-        grid-template-columns: 1fr;
-      }
+      .hero-card, .stores-grid { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 640px) {
-      .hero-card {
-        padding: 24px;
-      }
-
-      .hero-copy h2 {
-        max-width: none;
-      }
-
-      .top-actions,
-      .hero-actions,
-      .store-actions,
-      .modal-actions {
-        flex-direction: column;
-      }
-
-      .store-actions .btn,
-      .modal-actions .btn {
-        width: 100%;
-      }
+      .hero-card { padding: 24px; }
+      .hero-copy h2 { max-width: none; }
+      .top-actions, .hero-actions, .store-actions, .modal-actions, .section-actions { flex-direction: column; }
+      .store-actions .btn, .modal-actions .btn, .section-actions .btn { width: 100%; }
     }
   </style>
 </head>
@@ -440,11 +176,11 @@
       <div class="container hero-card">
         <div class="hero-copy">
           <span>Inicio del sistema</span>
-          <h2>Tu plataforma para locales de comida.</h2>
+          <h2>Tu espacio para descubrir y crear locales.</h2>
           <p>
-            Esta página principal no vende comida ni muestra un menú. Su función es simple:
-            permitir el registro de nuevos locales, el ingreso de cada negocio y mostrar abajo
-            los locales ya cargados dentro del sistema.
+            Esta página principal permite registrar nuevos locales, iniciar sesión en cada negocio
+            y mostrar abajo los locales ya cargados en la plataforma. El panel de administración
+            vive aparte; acá se ve la entrada pública del sistema.
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary" id="openRegisterBtn2">Quiero registrar mi local</button>
@@ -463,7 +199,7 @@
           </div>
           <div class="mini-card">
             <span>Próximo paso</span>
-            <strong>Conectar con Supabase para guardar y mostrar locales reales</strong>
+            <strong>Cada local podrá editar menú, horarios, días de trabajo y fotos desde su panel</strong>
           </div>
         </div>
       </div>
@@ -474,85 +210,20 @@
         <div class="section-head">
           <div>
             <h3>Locales registrados</h3>
-            <p>Estos aparecerán acá cuando vos los apruebes o cuando se registren en el sistema.</p>
+            <p>Acá aparecerán los locales que se vayan creando en la plataforma.</p>
+          </div>
+          <div class="section-actions">
+            <button class="btn btn-secondary" id="reloadStoresBtn">Actualizar lista</button>
           </div>
         </div>
 
         <div class="search-row">
-          <input type="text" id="searchInput" placeholder="Buscar por nombre, rubro o ciudad..." />
+          <input type="text" id="searchInput" placeholder="Buscar por nombre, rubro o dirección..." />
         </div>
 
-        <div class="stores-grid" id="storesGrid">
-          <article class="store-card" data-name="sabor de barrio hamburguesas virasoro">
-            <div class="store-top">
-              <div style="display:flex; gap:12px; align-items:start; min-width:0;">
-                <div class="store-avatar">SB</div>
-                <div class="store-meta">
-                  <h4>Sabor de Barrio</h4>
-                  <p>Hamburguesas · Virasoro</p>
-                </div>
-              </div>
-              <span class="store-status">Activo</span>
-            </div>
-            <div class="store-data">
-              <div class="data-row"><span>Slug</span><strong>/sabor-de-barrio</strong></div>
-              <div class="data-row"><span>Administrador</span><strong>Mariano</strong></div>
-              <div class="data-row"><span>Alta</span><strong>21/03/2026</strong></div>
-            </div>
-            <div class="store-actions">
-              <button class="btn btn-secondary">Ingresar</button>
-              <button class="btn btn-primary">Ver local</button>
-            </div>
-          </article>
-
-          <article class="store-card" data-name="punto pizza pizzería corrientes">
-            <div class="store-top">
-              <div style="display:flex; gap:12px; align-items:start; min-width:0;">
-                <div class="store-avatar">PP</div>
-                <div class="store-meta">
-                  <h4>Punto Pizza</h4>
-                  <p>Pizzería · Corrientes</p>
-                </div>
-              </div>
-              <span class="store-status">Activo</span>
-            </div>
-            <div class="store-data">
-              <div class="data-row"><span>Slug</span><strong>/punto-pizza</strong></div>
-              <div class="data-row"><span>Administrador</span><strong>Ana</strong></div>
-              <div class="data-row"><span>Alta</span><strong>21/03/2026</strong></div>
-            </div>
-            <div class="store-actions">
-              <button class="btn btn-secondary">Ingresar</button>
-              <button class="btn btn-primary">Ver local</button>
-            </div>
-          </article>
-
-          <article class="store-card" data-name="lomitos del centro lomitos posadas">
-            <div class="store-top">
-              <div style="display:flex; gap:12px; align-items:start; min-width:0;">
-                <div class="store-avatar">LC</div>
-                <div class="store-meta">
-                  <h4>Lomitos del Centro</h4>
-                  <p>Lomitos · Posadas</p>
-                </div>
-              </div>
-              <span class="store-status">Activo</span>
-            </div>
-            <div class="store-data">
-              <div class="data-row"><span>Slug</span><strong>/lomitos-del-centro</strong></div>
-              <div class="data-row"><span>Administrador</span><strong>Leo</strong></div>
-              <div class="data-row"><span>Alta</span><strong>21/03/2026</strong></div>
-            </div>
-            <div class="store-actions">
-              <button class="btn btn-secondary">Ingresar</button>
-              <button class="btn btn-primary">Ver local</button>
-            </div>
-          </article>
-        </div>
-
-        <div class="empty-box" id="emptyBox" style="display:none; margin-top:16px;">
-          No hay locales que coincidan con tu búsqueda.
-        </div>
+        <div class="loading-box" id="loadingBox">Cargando locales...</div>
+        <div class="stores-grid hidden" id="storesGrid"></div>
+        <div class="empty-box hidden" id="emptyBox">No hay locales que coincidan con tu búsqueda.</div>
       </div>
     </section>
   </main>
@@ -561,73 +232,319 @@
     <div class="modal-card">
       <h4>Crear tu local</h4>
       <p>
-        Este formulario después se conectará con Supabase para crear el local real.
-        Por ahora sirve para dejar definida la estructura de la pantalla principal.
+        Este registro crea la cuenta del negocio en Supabase Auth y después guarda los datos del local
+        en la tabla <strong>stores</strong>.
       </p>
-      <div class="form-grid">
-        <input type="text" placeholder="Nombre del local" />
-        <input type="text" placeholder="Rubro (pizzería, hamburguesería, etc.)" />
-        <input type="text" placeholder="Contacto del local (teléfono o WhatsApp)" />
-        <input type="text" placeholder="Dirección del local" />
-        <input type="text" placeholder="Usuario" />
-        <input type="password" placeholder="Contraseña" />
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-secondary" id="closeRegisterBtn">Cancelar</button>
-        <button class="btn btn-primary">Crear local</button>
-      </div>
+      <form class="form-grid" id="registerForm">
+        <input type="text" id="registerName" placeholder="Nombre del local" required />
+        <input type="text" id="registerCategory" placeholder="Rubro (pizzería, hamburguesería, etc.)" required />
+        <input type="text" id="registerContact" placeholder="Contacto del local (teléfono o WhatsApp)" required />
+        <input type="text" id="registerAddress" placeholder="Dirección del local" required />
+        <input type="email" id="registerEmail" placeholder="Correo del local" required />
+        <input type="password" id="registerPassword" placeholder="Contraseña" minlength="6" required />
+        <div class="form-help">La contraseña debe tener al menos 6 caracteres.</div>
+        <div class="form-status" id="registerStatus"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="closeRegisterBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="registerSubmitBtn">Crear local</button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <script>
+  <div class="modal" id="loginModal">
+    <div class="modal-card">
+      <h4>Ingresar</h4>
+      <p>
+        Iniciá sesión con el correo y contraseña del local. Cuando tengas listo tu panel de administración,
+        este login podrá redirigir automáticamente a esa vista.
+      </p>
+      <form class="form-grid" id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Correo del local" required />
+        <input type="password" id="loginPassword" placeholder="Contraseña" required />
+        <div class="form-status" id="loginStatus"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="closeLoginBtn">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Ingresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    const SUPABASE_URL = 'https://qkirmhrsgnfptnzghiks.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_oVTUF9hTpvnzOx-kyuCflg_XxcWFzn5';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const searchInput = document.getElementById('searchInput');
-    const storeCards = document.querySelectorAll('.store-card');
+    const storesGrid = document.getElementById('storesGrid');
     const emptyBox = document.getElementById('emptyBox');
+    const loadingBox = document.getElementById('loadingBox');
     const registerModal = document.getElementById('registerModal');
+    const loginModal = document.getElementById('loginModal');
     const openRegisterBtn = document.getElementById('openRegisterBtn');
     const openRegisterBtn2 = document.getElementById('openRegisterBtn2');
     const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
     const goStoresBtn = document.getElementById('goStoresBtn');
     const loginBtn = document.getElementById('loginBtn');
+    const reloadStoresBtn = document.getElementById('reloadStoresBtn');
+    const registerForm = document.getElementById('registerForm');
+    const loginForm = document.getElementById('loginForm');
+    const registerStatus = document.getElementById('registerStatus');
+    const loginStatus = document.getElementById('loginStatus');
+    const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
 
-    function applySearch() {
+    let stores = [];
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+        .slice(0, 60);
+    }
+
+    function getInitials(name) {
+      return name
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part[0]?.toUpperCase() || '')
+        .join('') || 'LO';
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return '-';
+      const date = new Date(dateValue);
+      if (Number.isNaN(date.getTime())) return '-';
+      return date.toLocaleDateString('es-AR');
+    }
+
+    function showStatus(el, message, type = 'error') {
+      el.textContent = message;
+      el.className = `form-status show ${type}`;
+    }
+
+    function clearStatus(el) {
+      el.textContent = '';
+      el.className = 'form-status';
+    }
+
+    function openModal(modal) { modal.classList.add('show'); }
+    function closeModal(modal) { modal.classList.remove('show'); }
+
+    function renderStores() {
       const query = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
-      storeCards.forEach(card => {
-        const text = card.dataset.name.toLowerCase();
-        const show = !query || text.includes(query);
-        card.style.display = show ? '' : 'none';
-        if (show) visibleCount++;
+      const filtered = stores.filter(store => {
+        const haystack = `${store.name || ''} ${store.category || ''} ${store.address || ''} ${store.contact || ''}`.toLowerCase();
+        return !query || haystack.includes(query);
       });
 
-      emptyBox.style.display = visibleCount === 0 ? '' : 'none';
+      storesGrid.innerHTML = '';
+
+      if (!filtered.length) {
+        storesGrid.classList.add('hidden');
+        emptyBox.classList.remove('hidden');
+        emptyBox.textContent = stores.length
+          ? 'No hay locales que coincidan con tu búsqueda.'
+          : 'Todavía no hay locales cargados en la plataforma.';
+        return;
+      }
+
+      emptyBox.classList.add('hidden');
+      storesGrid.classList.remove('hidden');
+
+      filtered.forEach(store => {
+        const article = document.createElement('article');
+        article.className = 'store-card';
+        article.dataset.name = `${store.name || ''} ${store.category || ''} ${store.address || ''}`.toLowerCase();
+
+        article.innerHTML = `
+          <div class="store-top">
+            <div style="display:flex; gap:12px; align-items:start; min-width:0;">
+              <div class="store-avatar">${getInitials(store.name || 'Local')}</div>
+              <div class="store-meta">
+                <h4>${store.name || 'Local sin nombre'}</h4>
+                <p>${store.category || 'Sin rubro'} · ${store.address || 'Sin dirección'}</p>
+              </div>
+            </div>
+            <span class="store-status">Activo</span>
+          </div>
+          <div class="store-data">
+            <div class="data-row"><span>Slug</span><strong>/${store.slug || '-'}</strong></div>
+            <div class="data-row"><span>Contacto</span><strong>${store.contact || '-'}</strong></div>
+            <div class="data-row"><span>Alta</span><strong>${formatDate(store.created_at)}</strong></div>
+          </div>
+          <div class="store-actions">
+            <a class="btn btn-secondary" href="/${store.slug || ''}">Ver local</a>
+            <button class="btn btn-primary login-shortcut" data-email="${store.email || ''}">Ingresar</button>
+          </div>
+        `;
+        storesGrid.appendChild(article);
+      });
+
+      storesGrid.querySelectorAll('.login-shortcut').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('loginEmail').value = btn.dataset.email || '';
+          openModal(loginModal);
+        });
+      });
     }
 
-    function openRegisterModal() {
-      registerModal.classList.add('show');
+    async function loadStores() {
+      loadingBox.classList.remove('hidden');
+      storesGrid.classList.add('hidden');
+      emptyBox.classList.add('hidden');
+
+      const { data, error } = await supabase
+        .from('stores')
+        .select('id, name, category, contact, address, slug, created_at, email')
+        .order('created_at', { ascending: false });
+
+      loadingBox.classList.add('hidden');
+
+      if (error) {
+        stores = [];
+        storesGrid.classList.add('hidden');
+        emptyBox.classList.remove('hidden');
+        emptyBox.textContent = 'No se pudieron cargar los locales. Revisá que exista la tabla stores y sus permisos de lectura.';
+        console.error('Error cargando stores:', error);
+        return;
+      }
+
+      stores = data || [];
+      renderStores();
     }
 
-    function closeRegisterModal() {
-      registerModal.classList.remove('show');
-    }
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearStatus(registerStatus);
+      registerSubmitBtn.disabled = true;
+      registerSubmitBtn.textContent = 'Creando...';
 
-    searchInput.addEventListener('input', applySearch);
-    openRegisterBtn.addEventListener('click', openRegisterModal);
-    openRegisterBtn2.addEventListener('click', openRegisterModal);
-    closeRegisterBtn.addEventListener('click', closeRegisterModal);
+      const name = document.getElementById('registerName').value.trim();
+      const category = document.getElementById('registerCategory').value.trim();
+      const contact = document.getElementById('registerContact').value.trim();
+      const address = document.getElementById('registerAddress').value.trim();
+      const email = document.getElementById('registerEmail').value.trim().toLowerCase();
+      const password = document.getElementById('registerPassword').value;
+      const slug = slugify(name);
 
-    registerModal.addEventListener('click', (e) => {
-      if (e.target === registerModal) closeRegisterModal();
+      if (!slug) {
+        showStatus(registerStatus, 'El nombre del local no es válido para generar un slug.');
+        registerSubmitBtn.disabled = false;
+        registerSubmitBtn.textContent = 'Crear local';
+        return;
+      }
+
+      try {
+        const { data: existingStore, error: existingError } = await supabase
+          .from('stores')
+          .select('id')
+          .eq('slug', slug)
+          .maybeSingle();
+
+        if (existingError && existingError.code !== 'PGRST116') {
+          throw existingError;
+        }
+        if (existingStore) {
+          throw new Error('Ya existe un local con ese nombre o slug.');
+        }
+
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { store_name: name }
+          }
+        });
+
+        if (signUpError) throw signUpError;
+
+        const userId = signUpData.user?.id;
+        if (!userId) {
+          throw new Error('No se pudo obtener el usuario creado. Revisá la configuración de Auth.');
+        }
+
+        const { error: insertError } = await supabase.from('stores').insert({
+          owner_id: userId,
+          name,
+          category,
+          contact,
+          address,
+          slug,
+          email
+        });
+
+        if (insertError) throw insertError;
+
+        showStatus(
+          registerStatus,
+          signUpData.session
+            ? 'Local creado correctamente. Ya podés iniciar sesión.'
+            : 'Local creado. Revisá tu correo para confirmar la cuenta si tenés activada la confirmación por email.',
+          'success'
+        );
+
+        registerForm.reset();
+        await loadStores();
+      } catch (error) {
+        console.error('Error registrando local:', error);
+        showStatus(registerStatus, error.message || 'No se pudo crear el local.');
+      } finally {
+        registerSubmitBtn.disabled = false;
+        registerSubmitBtn.textContent = 'Crear local';
+      }
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearStatus(loginStatus);
+      loginSubmitBtn.disabled = true;
+      loginSubmitBtn.textContent = 'Ingresando...';
+
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+
+        showStatus(loginStatus, 'Ingreso correcto. Cuando exista tu admin.html, redirigí acá al panel del local.', 'success');
+      } catch (error) {
+        console.error('Error en login:', error);
+        showStatus(loginStatus, error.message || 'No se pudo iniciar sesión.');
+      } finally {
+        loginSubmitBtn.disabled = false;
+        loginSubmitBtn.textContent = 'Ingresar';
+      }
+    });
+
+    searchInput.addEventListener('input', renderStores);
+    openRegisterBtn.addEventListener('click', () => openModal(registerModal));
+    openRegisterBtn2.addEventListener('click', () => openModal(registerModal));
+    closeRegisterBtn.addEventListener('click', () => closeModal(registerModal));
+    closeLoginBtn.addEventListener('click', () => closeModal(loginModal));
+    loginBtn.addEventListener('click', () => openModal(loginModal));
+    reloadStoresBtn.addEventListener('click', loadStores);
+
+    [registerModal, loginModal].forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal(modal);
+      });
     });
 
     goStoresBtn.addEventListener('click', () => {
       document.getElementById('storesSection').scrollIntoView({ behavior: 'smooth' });
     });
 
-    loginBtn.addEventListener('click', () => {
-      alert('Login con usuario y contraseña (próximamente conectado a Supabase)');
-    });
+    loadStores();
   </script>
 </body>
 </html>
