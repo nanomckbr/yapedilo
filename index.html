@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Maestro</title>
+  <title>Plataforma de Locales</title>
   <style>
     :root {
       --bg: #f6f7fb;
@@ -421,10 +421,10 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
-        <div class="brand-badge">PM</div>
+        <div class="brand-badge">PL</div>
         <div>
-          <h1>Panel Maestro</h1>
-          <p>Sistema madre para registrar y administrar locales</p>
+          <h1>Plataforma de Locales</h1>
+          <p>Encontrá locales y registrá el tuyo</p>
         </div>
       </div>
 
@@ -458,12 +458,12 @@
             <strong>Registro + login + listado de locales</strong>
           </div>
           <div class="mini-card">
-            <span>Qué no hace</span>
-            <strong>No muestra menú ni productos todavía</strong>
+            <span>Para quién es</span>
+            <strong>Clientes que buscan locales y negocios que quieren registrarse</strong>
           </div>
           <div class="mini-card">
-            <span>Siguiente conexión</span>
-            <strong>Después se enchufa a Supabase para guardar locales reales</strong>
+            <span>Próximo paso</span>
+            <strong>Conectar con Supabase para guardar y mostrar locales reales</strong>
           </div>
         </div>
       </div>
@@ -559,7 +559,7 @@
 
   <div class="modal" id="registerModal">
     <div class="modal-card">
-      <h4>Registrar nuevo local</h4>
+      <h4>Crear tu local</h4>
       <p>
         Este formulario después se conectará con Supabase para crear el local real.
         Por ahora sirve para dejar definida la estructura de la pantalla principal.
@@ -567,9 +567,9 @@
       <div class="form-grid">
         <input type="text" placeholder="Nombre del local" />
         <input type="text" placeholder="Rubro (pizzería, hamburguesería, etc.)" />
-        <input type="text" placeholder="Ciudad" />
-        <input type="text" placeholder="Nombre del administrador" />
-        <input type="email" placeholder="Correo del administrador" />
+        <input type="text" placeholder="Contacto del local (teléfono o WhatsApp)" />
+        <input type="text" placeholder="Dirección del local" />
+        <input type="text" placeholder="Usuario" />
         <input type="password" placeholder="Contraseña" />
       </div>
       <div class="modal-actions">
@@ -626,7 +626,7 @@
     });
 
     loginBtn.addEventListener('click', () => {
-      alert('Acá después irá el login de cada local.');
+      alert('Login con usuario y contraseña (próximamente conectado a Supabase)');
     });
   </script>
 </body>
