@@ -256,8 +256,8 @@
     <div class="modal-card">
       <h4>Ingresar</h4>
       <p>
-        Iniciá sesión con el correo y contraseña del local. Cuando tengas listo tu panel de administración,
-        este login podrá redirigir automáticamente a esa vista.
+        Iniciá sesión con el correo y contraseña del local. Si el acceso es correcto,
+        vas directo al panel de administración del negocio.
       </p>
       <form class="form-grid" id="loginForm">
         <input type="email" id="loginEmail" placeholder="Correo del local" required />
@@ -515,7 +515,10 @@
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
 
-        showStatus(loginStatus, 'Ingreso correcto. Cuando exista tu admin.html, redirigí acá al panel del local.', 'success');
+        showStatus(loginStatus, 'Ingreso correcto. Redirigiendo al panel del local...', 'success');
+        setTimeout(() => {
+          window.location.href = 'admin_visual_local.html';
+        }, 700);
       } catch (error) {
         console.error('Error en login:', error);
         showStatus(loginStatus, error.message || 'No se pudo iniciar sesión.');
@@ -543,7 +546,19 @@
       document.getElementById('storesSection').scrollIntoView({ behavior: 'smooth' });
     });
 
-    loadStores();
+    async function redirectIfLoggedIn() {
+      const { data } = await supabase.auth.getSession();
+      if (data?.session) {
+        window.location.href = 'admin_visual_local.html';
+        return true;
+      }
+      return false;
+    }
+
+    const alreadyLogged = await redirectIfLoggedIn();
+    if (!alreadyLogged) {
+      loadStores();
+    }
   </script>
 </body>
 </html>
