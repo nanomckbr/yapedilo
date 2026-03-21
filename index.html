@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plantilla Madre - Pedidos</title>
+  <style>
+    :root {
+      --bg: #fff8f1;
+      --surface: #ffffff;
+      --surface-2: #fff1e6;
+      --text: #1f1f1f;
+      --muted: #6b6b6b;
+      --primary: #e85d04;
+      --primary-dark: #c24d04;
+      --accent: #ffba08;
+      --success: #1f9d55;
+      --danger: #d62828;
+      --border: #f0dccb;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fff8f1 0%, #fff4ea 100%);
+      color: var(--text);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font: inherit;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(100% - 24px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 248, 241, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 93, 4, 0.08);
+    }
+
+    .topbar-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: var(--shadow);
+      background: #fff;
+      border: 1px solid var(--border);
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 1.1rem;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .hero {
+      padding: 22px 0 18px;
+    }
+
+    .hero-card {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+      background: linear-gradient(135deg, #fff 0%, #fff6ef 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff1e6;
+      color: var(--primary-dark);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1px solid #ffd2b3;
+    }
+
+    .hero-content h2 {
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1;
+    }
+
+    .hero-content p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(232, 93, 4, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #fff6ef;
+    }
+
+    .hero-image {
+      min-height: 320px;
+      background: #f5d8bf;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .info-strip {
+      padding: 10px 0 18px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card span {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .info-card strong {
+      font-size: 0.98rem;
+      line-height: 1.3;
+    }
+
+    .toolbar {
+      padding: 10px 0 18px;
+    }
+
+    .toolbar-inner {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1 1 280px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 0.96rem;
+      outline: none;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box input:focus {
+      border-color: #ffb37d;
+    }
+
+    .category-chips {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .category-chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      white-space: nowrap;
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 20px;
+      padding-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-image-wrap {
+      position: relative;
+      aspect-ratio: 16 / 11;
+      background: #f6e5d7;
+    }
+
+    .product-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .promo-tag,
+    .category-tag {
+      position: absolute;
+      top: 12px;
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .promo-tag {
+      left: 12px;
+      background: rgba(232, 93, 4, 0.95);
+      color: #fff;
+    }
+
+    .category-tag {
+      right: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .product-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .product-title-row {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .product-title-row h3 {
+      font-size: 1.06rem;
+      line-height: 1.2;
+    }
+
+    .product-desc {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.45;
+      min-height: 42px;
+    }
+
+    .price-wrap {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .price-now {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .price-old {
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 8px;
+      background: #fff9f4;
+    }
+
+    .qty-controls button {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .qty-controls span {
+      min-width: 18px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .add-btn {
+      flex: 1;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 700;
+    }
+
+    .add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .cart-panel {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+      background: #fff;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .cart-header {
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #fff8f1 0%, #fff 100%);
+    }
+
+    .cart-header h3 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .cart-header p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .cart-items {
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 360px;
+      overflow: auto;
+    }
+
+    .cart-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fffaf6;
+    }
+
+    .cart-item-top,
+    .cart-item-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cart-item-top strong {
+      font-size: 0.95rem;
+    }
+
+    .cart-item-top span,
+    .cart-item-bottom span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .cart-summary {
+      padding: 18px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      gap: 10px;
+      background: #fff;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .summary-row.total {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      padding-top: 4px;
+    }
+
+    .customer-box {
+      padding: 0 18px 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .customer-box input,
+    .customer-box textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      outline: none;
+      background: #fff;
+      resize: vertical;
+      min-height: 48px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 16px;
+      background: #25d366;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.22);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 28px 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .footer {
+      padding: 12px 0 28px;
+    }
+
+    .footer-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+
+    .footer-card small {
+      color: var(--muted);
+      line-height: 1.5;
+      display: block;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      background: #1f1f1f;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+      z-index: 100;
+      font-size: 0.92rem;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 1080px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero-card,
+      .info-grid,
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        min-height: 240px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .brand {
+        width: 100%;
+      }
+
+      .status-pill {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-content {
+        padding: 22px;
+      }
+
+      .product-actions {
+        flex-direction: column;
+      }
+
+      .add-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <img
+          class="brand-logo"
+          src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80"
+          alt="Logo del local"
+          id="storeLogo"
+        />
+        <div class="brand-text">
+          <h1 id="storeName">Sabor de Barrio</h1>
+          <div class="brand-meta">
+            <span id="storeType">Hamburguesas · Pizzas · Lomitos</span>
+            <span id="storeDelivery">Delivery estimado: 35-50 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-pill" id="storeStatusPill">
+        <span class="status-dot"></span>
+        <span id="storeStatusText">Abierto ahora</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="hero-content">
+            <span class="hero-badge">Plantilla madre multi-local</span>
+            <h2 id="heroTitle">Comida que entra por los ojos y vuelve por antojo.</h2>
+            <p id="heroDescription">
+              Página base pensada para cualquier rotisería, pizzería o local gastronómico.
+              Visual, clara y lista para conectarse después con Supabase y datos reales.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#menu">Ver menú</a>
+              <a class="btn btn-secondary" href="#infoLocal">Info del local</a>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <img
+              src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80"
+              alt="Imagen principal del local"
+              id="heroImage"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-strip" id="infoLocal">
+      <div class="container info-grid">
+        <article class="info-card">
+          <span>Dirección</span>
+          <strong id="storeAddress">Av. Principal 123, Virasoro</strong>
+        </article>
+        <article class="info-card">
+          <span>Horarios</span>
+          <strong id="storeHours">Lun a Dom · 19:00 a 00:30</strong>
+        </article>
+        <article class="info-card">
+          <span>WhatsApp</span>
+          <strong id="storePhone">+54 9 3722 00-0000</strong>
+        </article>
+        <article class="info-card">
+          <span>Promoción destacada</span>
+          <strong id="storePromo">2 hamburguesas + papas</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div class="container toolbar-inner">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Buscar productos..." />
+        </div>
+
+        <div class="category-chips" id="categoryChips">
+          <button class="chip active" data-category="todos">Todos</button>
+          <button class="chip" data-category="hamburguesas">Hamburguesas</button>
+          <button class="chip" data-category="pizzas">Pizzas</button>
+          <button class="chip" data-category="lomitos">Lomitos</button>
+          <button class="chip" data-category="empanadas">Empanadas</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container main-layout" id="menu">
+      <div>
+        <h2 class="section-title">Menú destacado</h2>
+
+        <div class="products-grid" id="productsGrid">
+          <!-- PRODUCTO 1 -->
+          <article class="product-card" data-category="hamburguesas" data-name="hamburguesa doble cheddar">
+            <div class="product-image-wrap">
+              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80" alt="Hamburguesa doble cheddar" />
+              <span class="promo-tag">Promo</span>
+              <span class="category-tag">Hamburguesas</span>
+            </div>
+            <div class="product-body">
+              <div class="product-title-row">
+                <h3>Hamburguesa Doble Cheddar</h3>
+              </div>
+              <p class="product-desc">Doble medallón, cheddar, panceta, cebolla grillada y salsa especial de la casa.</p>
+              <div class="price-wrap">
+                <span class="price-now">$8.900</span>
+                <span class="price-old">$10.200</span>
+              </div>
+              <div class="product-actions">
+                <div class="qty-controls">
+                  <button type="button" class="qty-minus">−</button>
+                  <span class="qty-value">1</span>
+                  <button type="button" class="qty-plus">+</button>
+                </div>
+                <button class="add-btn" data-name="Hamburguesa Doble Cheddar" data-price="8900">Agregar</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PRODUCTO 2 -->
+          <article class="product-card" data-category="pizzas" data-name="pizza muzzarella especial">
+            <div class="product-image-wrap">
+              <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80" alt="Pizza muzzarella especial" />
+              <span class="category-tag">Pizzas</span>
+            </div>
+            <div class="product-body">
+              <div class="product-title-row">
+                <h3>Pizza Muzzarella Especial</h3>
+              </div>
+              <p class="product-desc">Masa casera, salsa italiana, muzzarella, aceitunas y toque de orégano fresco.</p>
+              <div class="price-wrap">
+                <span class="price-now">$9.500</span>
+              </div>
+              <div class="product-actions">
+                <div class="qty-controls">
+                  <button type="button" class="qty-minus">−</button>
+                  <span class="qty-value">1</span>
+                  <button type="button" class="qty-plus">+</button>
+                </div>
+                <button class="add-btn" data-name="Pizza Muzzarella Especial" data-price="9500">Agregar</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PRODUCTO 3 -->
+          <article class="product-card" data-category="lomitos" data-name="lomito completo">
+            <div class="product-image-wrap">
+              <img src="https://images.unsplash.com/photo-1521302200778-33500795e128?auto=format&fit=crop&w=1200&q=80" alt="Lomito completo" />
+              <span class="promo-tag">Sale</span>
+              <span class="category-tag">Lomitos</span>
+            </div>
+            <div class="product-body">
+              <div class="product-title-row">
+                <h3>Lomito Completo</h3>
+              </div>
+              <p class="product-desc">Pan tostado, lomo tierno, jamón, queso, huevo, lechuga, tomate y mayonesa.</p>
+              <div class="price-wrap">
+                <span class="price-now">$11.300</span>
+                <span class="price-old">$12.000</span>
+              </div>
+              <div class="product-actions">
+                <div class="qty-controls">
+                  <button type="button" class="qty-minus">−</button>
+                  <span class="qty-value">1</span>
+                  <button type="button" class="qty-plus">+</button>
+                </div>
+                <button class="add-btn" data-name="Lomito Completo" data-price="11300">Agregar</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PRODUCTO 4 -->
+          <article class="product-card" data-category="empanadas" data-name="empanadas criollas">
+            <div class="product-image-wrap">
+              <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=1200&q=80" alt="Empanadas criollas" />
+              <span class="category-tag">Empanadas</span>
+            </div>
+            <div class="product-body">
+              <div class="product-title-row">
+                <h3>Empanadas Criollas x12</h3>
+              </div>
+              <p class="product-desc">Docena surtida con carne, jamón y queso, pollo y caprese. Hechas al horno.</p>
+              <div class="price-wrap">
+                <span class="price-now">$10.800</span>
+              </div>
+              <div class="product-actions">
+                <div class="qty-controls">
+                  <button type="button" class="qty-minus">−</button>
+                  <span class="qty-value">1</span>
+                  <button type="button" class="qty-plus">+</button>
+                </div>
+                <button class="add-btn" data-name="Empanadas Criollas x12" data-price="10800">Agregar</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="cart-panel">
+        <div class="cart-header">
+          <h3>Tu pedido</h3>
+          <p>Este bloque después se conectará a Supabase y WhatsApp.</p>
+        </div>
+
+        <div class="cart-items" id="cartItems">
+          <div class="empty-state" id="emptyCartState">Todavía no agregaste nada. Elegí algo rico y aparece acá.</div>
+        </div>
+
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong id="subtotalPrice">$0</strong>
+          </div>
+          <div class="summary-row">
+            <span>Envío estimado</span>
+            <strong id="deliveryPrice">$1.500</strong>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <strong id="totalPrice">$1.500</strong>
+          </div>
+        </div>
+
+        <div class="customer-box">
+          <input type="text" id="customerName" placeholder="Tu nombre" />
+          <input type="text" id="customerPhone" placeholder="Tu teléfono" />
+          <textarea id="customerNotes" placeholder="Aclaraciones del pedido (sin cebolla, efectivo, etc.)"></textarea>
+          <button class="checkout-btn" id="checkoutBtn">Enviar por WhatsApp</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="footer">
+      <div class="container">
+        <div class="footer-card">
+          <div>
+            <strong id="footerStoreName">Sabor de Barrio</strong>
+            <small>
+              Plantilla madre pensada para convertirse en una web dinámica por local.
+              Después acá pueden entrar datos reales desde Supabase.
+            </small>
+          </div>
+          <div>
+            <small id="footerMeta">
+              Estructura ideal para conectar con: stores, categories, products, orders,
+              order_items y store_settings.
+            </small>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Producto agregado al carrito</div>
+
+  <script>
+    const cart = [];
+    const DELIVERY_COST = 1500;
+    const cartItemsEl = document.getElementById('cartItems');
+    const subtotalPriceEl = document.getElementById('subtotalPrice');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const emptyCartState = document.getElementById('emptyCartState');
+    const toast = document.getElementById('toast');
+    const searchInput = document.getElementById('searchInput');
+    const chipButtons = document.querySelectorAll('.chip');
+    const productCards = document.querySelectorAll('.product-card');
+    const addButtons = document.querySelectorAll('.add-btn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function formatPrice(value) {
+      return `$${value.toLocaleString('es-AR')}`;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1800);
+    }
+
+    function renderCart() {
+      cartItemsEl.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartItemsEl.appendChild(emptyCartState);
+        subtotalPriceEl.textContent = formatPrice(0);
+        totalPriceEl.textContent = formatPrice(DELIVERY_COST);
+        return;
+      }
+
+      let subtotal = 0;
+
+      cart.forEach((item, index) => {
+        subtotal += item.price * item.quantity;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <div class="cart-item-top">
+            <strong>${item.name}</strong>
+            <button type="button" data-remove="${index}" style="background:none;color:#d62828;font-weight:700;">Quitar</button>
+          </div>
+          <div class="cart-item-bottom" style="margin-top:10px;">
+            <span>${item.quantity} x ${formatPrice(item.price)}</span>
+            <strong>${formatPrice(item.price * item.quantity)}</strong>
+          </div>
+        `;
+        cartItemsEl.appendChild(div);
+      });
+
+      subtotalPriceEl.textContent = formatPrice(subtotal);
+      totalPriceEl.textContent = formatPrice(subtotal + DELIVERY_COST);
+
+      cartItemsEl.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = Number(btn.dataset.remove);
+          cart.splice(index, 1);
+          renderCart();
+          showToast('Producto eliminado');
+        });
+      });
+    }
+
+    document.querySelectorAll('.qty-controls').forEach(control => {
+      const minus = control.querySelector('.qty-minus');
+      const plus = control.querySelector('.qty-plus');
+      const valueEl = control.querySelector('.qty-value');
+
+      minus.addEventListener('click', () => {
+        const current = Number(valueEl.textContent);
+        if (current > 1) valueEl.textContent = current - 1;
+      });
+
+      plus.addEventListener('click', () => {
+        const current = Number(valueEl.textContent);
+        valueEl.textContent = current + 1;
+      });
+    });
+
+    addButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.product-card');
+        const qty = Number(card.querySelector('.qty-value').textContent);
+        const name = button.dataset.name;
+        const price = Number(button.dataset.price);
+
+        const existing = cart.find(item => item.name === name && item.price === price);
+        if (existing) {
+          existing.quantity += qty;
+        } else {
+          cart.push({ name, price, quantity: qty });
+        }
+
+        card.querySelector('.qty-value').textContent = '1';
+        renderCart();
+        showToast('Producto agregado al carrito');
+      });
+    });
+
+    chipButtons.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chipButtons.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+
+    function applyFilters() {
+      const activeCategory = document.querySelector('.chip.active')?.dataset.category || 'todos';
+      const query = searchInput.value.trim().toLowerCase();
+
+      productCards.forEach(card => {
+        const category = card.dataset.category;
+        const name = card.dataset.name;
+
+        const matchCategory = activeCategory === 'todos' || category === activeCategory;
+        const matchQuery = !query || name.includes(query);
+
+        card.style.display = matchCategory && matchQuery ? '' : 'none';
+      });
+    }
+
+    checkoutBtn.addEventListener('click', () => {
+      const customerName = document.getElementById('customerName').value.trim();
+      const customerPhone = document.getElementById('customerPhone').value.trim();
+      const customerNotes = document.getElementById('customerNotes').value.trim();
+      const storePhone = '5493722000000';
+
+      if (!cart.length) {
+        showToast('Primero agregá productos');
+        return;
+      }
+
+      const lines = cart.map(item => `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`);
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const total = subtotal + DELIVERY_COST;
+
+      const message = [
+        'Hola, quiero hacer este pedido:',
+        '',
+        ...lines,
+        '',
+        `Subtotal: ${formatPrice(subtotal)}`,
+        `Envío: ${formatPrice(DELIVERY_COST)}`,
+        `Total: ${formatPrice(total)}`,
+        '',
+        `Nombre: ${customerName || '-'}',`
+      ];
+
+      if (customerPhone) message.push(`Teléfono: ${customerPhone}`);
+      if (customerNotes) message.push(`Notas: ${customerNotes}`);
+
+      const finalMessage = encodeURIComponent(message.join('\n').replace("-',", '-'));
+      window.open(`https://wa.me/${storePhone}?text=${finalMessage}`, '_blank');
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
