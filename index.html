@@ -6,14 +6,14 @@
   <title>Plataforma de Locales</title>
   <style>
     :root {
-      --bg: #f6f7fb;
-      --surface: #ffffff;
-      --surface-2: #f1f3f9;
-      --text: #171717;
-      --muted: #6b7280;
-      --primary: #111827;
+      --bg: #0b1220;
+      --surface: #111827;
+      --surface-2: #172033;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --primary: #0f172a;
       --accent: #ff6b35;
-      --border: #e5e7eb;
+      --border: #243041;
       --shadow: 0 12px 32px rgba(17, 24, 39, 0.08);
       --radius: 22px;
       --max: 1180px;
@@ -26,7 +26,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #f8f9fc 0%, #eef2f8 100%);
+      background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
       color: var(--text);
     }
     a { color: inherit; text-decoration: none; }
@@ -53,13 +53,13 @@
       background: var(--accent); color: white; box-shadow: 0 10px 24px rgba(255, 107, 53, 0.22);
     }
     .btn-primary:hover { transform: translateY(-1px); }
-    .btn-secondary { background: white; border: 1px solid var(--border); color: var(--text); }
+    .btn-secondary { background: var(--surface) border: 1px solid var(--border); color: var(--text); }
     .btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; }
     .hero { padding: 12px 0 24px; }
     .hero-card {
-      background: radial-gradient(circle at top left, #ffffff 0%, #f5f7fc 52%, #eef2f8 100%);
+      background: radial-gradient(circle at top left, #111827 0%, #101827 52%, #0f172a 100%);
       border: 1px solid var(--border); border-radius: 32px; box-shadow: var(--shadow); padding: 34px;
-      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; align-items: center;
+      display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center;
     }
     .hero-copy span {
       display: inline-block; padding: 8px 12px; border-radius: 999px; background: #fff1eb;
@@ -72,11 +72,11 @@
       color: var(--muted); font-size: 1rem; line-height: 1.65; max-width: 60ch; margin-bottom: 22px;
     }
     .hero-panel {
-      background: white; border: 1px solid var(--border); border-radius: 24px; padding: 20px;
+      background: var(--surface) border: 1px solid var(--border); border-radius: 24px; padding: 20px;
       box-shadow: var(--shadow); display: grid; gap: 14px;
     }
     .mini-card {
-      border: 1px solid var(--border); border-radius: 18px; padding: 16px; background: #fafbff;
+      border: 1px solid var(--border); border-radius: 18px; padding: 16px; background: #162033;
     }
     .mini-card span { display: block; color: var(--muted); font-size: 0.82rem; margin-bottom: 6px; }
     .mini-card strong { font-size: 1rem; }
@@ -91,12 +91,12 @@
     }
     .search-row input, .form-grid input {
       width: 100%; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border);
-      background: white; outline: none; box-shadow: var(--shadow);
+      background: var(--surface) outline: none; box-shadow: var(--shadow);
     }
     .search-row input { flex: 1 1 280px; }
     .stores-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
     .store-card {
-      background: white; border: 1px solid var(--border); border-radius: 24px; padding: 18px; box-shadow: var(--shadow);
+      background: var(--surface) border: 1px solid var(--border); border-radius: 24px; padding: 18px; box-shadow: var(--shadow);
       display: flex; flex-direction: column; gap: 14px;
     }
     .store-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
@@ -118,7 +118,7 @@
     .data-row strong { color: var(--text); }
     .store-actions .btn { flex: 1; text-align: center; }
     .empty-box, .loading-box {
-      border: 1px dashed #cbd5e1; border-radius: 24px; background: rgba(255,255,255,0.7);
+      border: 1px dashed #cbd5e1; border-radius: 24px; background: rgba(17,24,39,0.7);
       padding: 28px; text-align: center; color: var(--muted);
     }
     .hidden { display: none !important; }
@@ -128,7 +128,7 @@
     }
     .modal.show { display: flex; }
     .modal-card {
-      width: min(100%, 540px); background: white; border-radius: 28px; padding: 24px;
+      width: min(100%, 540px); background: var(--surface) border-radius: 28px; padding: 24px;
       box-shadow: 0 30px 80px rgba(0,0,0,0.18); display: grid; gap: 14px;
     }
     .modal-card h4 { font-size: 1.35rem; }
@@ -151,6 +151,12 @@
       .top-actions, .hero-actions, .store-actions, .modal-actions, .section-actions { flex-direction: column; }
       .store-actions .btn, .modal-actions .btn, .section-actions .btn { width: 100%; }
     }
+  
+    .btn-secondary { background: #111827; border: 1px solid var(--border); color: var(--text); }
+    .search-row input, .form-grid input { background: #111827; color: var(--text); box-shadow: none; }
+    .mini-card, .store-card, .modal-card { background: #111827; }
+    .store-status { background: rgba(22,163,74,.15); color: #86efac; border-color: rgba(22,163,74,.25); }
+
   </style>
 </head>
 <body>
@@ -165,8 +171,7 @@
       </div>
 
       <div class="top-actions">
-        <button class="btn btn-secondary" id="loginBtn">Ingresar</button>
-        <button class="btn btn-primary" id="openRegisterBtn">Registrar local</button>
+        <button class="btn btn-secondary" id="loginBtn">Ver local</button>
       </div>
     </div>
   </header>
@@ -188,19 +193,6 @@
           </div>
         </div>
 
-        <div class="hero-panel">
-          <div class="mini-card">
-            <span>Qué hace esta página</span>
-            <strong>Registro + login + listado de locales</strong>
-          </div>
-          <div class="mini-card">
-            <span>Para quién es</span>
-            <strong>Clientes que buscan locales y negocios que quieren registrarse</strong>
-          </div>
-          <div class="mini-card">
-            <span>Próximo paso</span>
-            <strong>Cada local podrá editar menú, horarios, días de trabajo y fotos desde su panel</strong>
-          </div>
         </div>
       </div>
     </section>
@@ -209,8 +201,8 @@
       <div class="container">
         <div class="section-head">
           <div>
-            <h3>Locales registrados</h3>
-            <p>Acá aparecerán los locales que se vayan creando en la plataforma.</p>
+            <h3>Locales disponibles</h3>
+            <p>Acá vas a encontrar los locales disponibles dentro de la plataforma.</p>
           </div>
           <div class="section-actions">
             <button class="btn btn-secondary" id="reloadStoresBtn">Actualizar lista</button>
@@ -265,7 +257,7 @@
         <div class="form-status" id="loginStatus"></div>
         <div class="modal-actions">
           <button type="button" class="btn btn-secondary" id="closeLoginBtn">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Ingresar</button>
+          <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Ver local</button>
         </div>
       </form>
     </div>
@@ -383,7 +375,7 @@
           </div>
           <div class="store-actions">
             <a class="btn btn-secondary" href="local_publica_slug.html?slug=${store.slug || ''}">Ver local</a>
-            <button class="btn btn-primary login-shortcut" data-email="">Ingresar</button>
+            <button class="btn btn-primary login-shortcut" data-email="">Ver local</button>
           </div>
         `;
         storesGrid.appendChild(article);
