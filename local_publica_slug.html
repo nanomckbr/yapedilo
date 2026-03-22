@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{
+      --bg:#f7f8fc;--surface:#ffffff;--text:#161616;--muted:#6b7280;--primary:#ff6b35;--primary-dark:#e45722;--border:#e5e7eb;--shadow:0 16px 40px rgba(15,23,42,.08);--radius:24px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f8fbff 0%,#eef3f8 100%);color:var(--text)}
+    img{display:block;max-width:100%}
+    .container{width:min(100% - 24px,1200px);margin:0 auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(248,251,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.05)}
+    .topbar-inner{min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .logo{width:58px;height:58px;border-radius:18px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.05rem;overflow:hidden;flex-shrink:0;box-shadow:var(--shadow)}
+    .logo img{width:100%;height:100%;object-fit:cover}
+    .brand h1{font-size:1.1rem;margin-bottom:4px}
+    .brand p{color:var(--muted);font-size:.92rem}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:10px 14px;font-weight:700;box-shadow:var(--shadow)}
+    .dot{width:10px;height:10px;border-radius:50%;background:#16a34a}
+    .hero{padding:22px 0 18px}
+    .hero-card{background:linear-gradient(135deg,#fff 0%,#fff5ef 100%);border:1px solid var(--border);border-radius:32px;overflow:hidden;box-shadow:var(--shadow);display:grid;grid-template-columns:1.1fr .9fr}
+    .hero-copy{padding:28px;display:grid;gap:14px;align-content:center}
+    .hero-copy span{display:inline-block;width:fit-content;padding:8px 12px;border-radius:999px;background:#fff1eb;color:#c2410c;font-size:.82rem;font-weight:700}
+    .hero-copy h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1}
+    .hero-copy p{color:var(--muted);line-height:1.65;max-width:62ch}
+    .hero-meta{display:flex;gap:12px;flex-wrap:wrap}
+    .meta-box{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px 16px;min-width:190px}
+    .meta-box small{display:block;color:var(--muted);margin-bottom:6px}
+    .meta-box strong{font-size:.98rem;line-height:1.3}
+    .hero-image{min-height:320px;background:#f3f4f6;display:grid;place-items:center;color:var(--muted);overflow:hidden}
+    .hero-image img{width:100%;height:100%;object-fit:cover}
+    .section{padding:10px 0 24px}
+    .section-head{margin-bottom:16px}
+    .section-head h3{font-size:1.45rem;margin-bottom:6px}
+    .section-head p{color:var(--muted);line-height:1.55}
+    .chips{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{padding:10px 14px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);font-weight:700}
+    .hours-grid,.categories-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .hours-card,.category-block{background:#fff;border:1px solid var(--border);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+    .hours-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed #edf0f5}
+    .hours-row:last-child{border-bottom:none}
+    .muted{color:var(--muted)}
+    .products-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .product-card{background:#fff;border:1px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
+    .product-image{aspect-ratio:16/10;background:#f3f4f6;display:grid;place-items:center;color:var(--muted);overflow:hidden}
+    .product-image img{width:100%;height:100%;object-fit:cover}
+    .product-body{padding:16px;display:grid;gap:8px}
+    .product-title{display:flex;justify-content:space-between;gap:12px;align-items:start}
+    .price{font-weight:800;color:var(--primary-dark);white-space:nowrap}
+    .footer{padding:10px 0 32px}
+    .footer-card{background:#fff;border:1px solid var(--border);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+    .state{background:#fff;border:1px solid var(--border);border-radius:24px;padding:28px;text-align:center;box-shadow:var(--shadow)}
+    .state h2{margin-bottom:10px}
+    .state p{color:var(--muted);line-height:1.6;max-width:60ch;margin:0 auto}
+    @media (max-width:920px){.hero-card,.hours-grid,.categories-grid,.products-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo" id="brandLogo">LO</div>
+        <div>
+          <h1 id="brandName">Cargando local...</h1>
+          <p id="brandMeta">Preparando menú</p>
+        </div>
+      </div>
+      <div class="pill"><span class="dot"></span><span id="openState">Consultá horarios</span></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="loadingState" class="section">
+      <div class="state">
+        <h2>Cargando local...</h2>
+        <p>Estamos trayendo la información del negocio, categorías, productos y horarios.</p>
+      </div>
+    </section>
+
+    <section id="notFoundState" class="section" style="display:none;">
+      <div class="state">
+        <h2>No encontramos este local</h2>
+        <p>Puede que el slug no exista todavía, esté mal escrito o que el negocio aún no haya completado su configuración.</p>
+      </div>
+    </section>
+
+    <div id="content" style="display:none;">
+      <section class="hero">
+        <div class="hero-card">
+          <div class="hero-copy">
+            <span>Menú online</span>
+            <h2 id="heroName">Nombre del local</h2>
+            <p id="heroDescription">Descripción del local.</p>
+            <div class="hero-meta">
+              <div class="meta-box"><small>Rubro</small><strong id="heroCategory">—</strong></div>
+              <div class="meta-box"><small>Contacto</small><strong id="heroContact">—</strong></div>
+              <div class="meta-box"><small>Dirección</small><strong id="heroAddress">—</strong></div>
+            </div>
+          </div>
+          <div class="hero-image" id="heroImageWrap">Sin imagen</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h3>Categorías</h3>
+          <p>El menú se arma automáticamente agrupando productos según las categorías cargadas por el local.</p>
+        </div>
+        <div class="chips" id="categoriesChips"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h3>Horarios</h3>
+          <p>Días y horarios de atención del local.</p>
+        </div>
+        <div class="hours-grid">
+          <div class="hours-card" id="hoursList"></div>
+          <div class="hours-card">
+            <h4 style="margin-bottom:10px;">Información del local</h4>
+            <div class="hours-row"><span class="muted">Nombre</span><strong id="infoName">—</strong></div>
+            <div class="hours-row"><span class="muted">Slug</span><strong id="infoSlug">—</strong></div>
+            <div class="hours-row"><span class="muted">Rubro</span><strong id="infoCategory">—</strong></div>
+            <div class="hours-row"><span class="muted">Contacto</span><strong id="infoContact">—</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h3>Menú</h3>
+          <p>Productos disponibles agrupados por categoría.</p>
+        </div>
+        <div class="categories-grid" id="menuByCategory"></div>
+      </section>
+
+      <section class="footer">
+        <div class="footer-card">
+          <strong id="footerName">Local</strong>
+          <p class="muted" style="margin-top:8px;">Esta página se genera desde una sola plantilla dinámica. Cada local cambia su contenido sin necesidad de crear un HTML distinto.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const SUPABASE_URL = 'https://qkirmhrsgnfptnzghiks.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_oVTUF9hTpvnzOx-kyuCflg_XxcWFzn5';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function initials(name) {
+      const clean = (name || '').trim();
+      if (!clean) return 'LO';
+      return clean.split(' ').slice(0, 2).map(x => x[0]?.toUpperCase() || '').join('');
+    }
+
+    function money(v) {
+      return `$${Number(v || 0).toLocaleString('es-AR')}`;
+    }
+
+    function getSlugFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const querySlug = params.get('slug');
+      if (querySlug) return querySlug;
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      return parts[parts.length - 1] || '';
+    }
+
+    function formatTime(value) {
+      if (!value) return '—';
+      return value.slice(0,5);
+    }
+
+    function dayName(n) {
+      const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+      return days[n] || 'Día';
+    }
+
+    function showNotFound() {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('notFoundState').style.display = '';
+      document.getElementById('content').style.display = 'none';
+    }
+
+    async function boot() {
+      const slug = getSlugFromUrl();
+      if (!slug || slug.endsWith('.html')) {
+        showNotFound();
+        return;
+      }
+
+      const { data: store, error: storeError } = await supabaseClient
+        .from('stores')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (storeError || !store) {
+        showNotFound();
+        return;
+      }
+
+      const categoriesRes = await supabaseClient.from('categories').select('*').eq('store_id', store.id).order('created_at', { ascending: true });
+      const productsRes = await supabaseClient.from('products').select('*').eq('store_id', store.id).eq('is_active', true).order('created_at', { ascending: false });
+      const hoursRes = await supabaseClient.from('store_hours').select('*').eq('store_id', store.id).order('day_of_week', { ascending: true });
+
+      renderStore(store, categoriesRes.data || [], productsRes.data || [], hoursRes.data || []);
+    }
+
+    function renderStore(store, categories, products, hours) {
+      document.title = `${store.name} | Local`;
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('notFoundState').style.display = 'none';
+      document.getElementById('content').style.display = '';
+
+      const brandLogo = document.getElementById('brandLogo');
+      if (store.logo_url) {
+        brandLogo.innerHTML = `<img src="${store.logo_url}" alt="${store.name}" onerror="this.parentElement.textContent='${initials(store.name)}'">`;
+      } else {
+        brandLogo.textContent = initials(store.name);
+      }
+
+      document.getElementById('brandName').textContent = store.name || 'Local';
+      document.getElementById('brandMeta').textContent = `${store.category || 'Rubro'} · ${store.address || 'Dirección'}`;
+      document.getElementById('heroName').textContent = store.name || 'Local';
+      document.getElementById('heroDescription').textContent = store.description || 'Este local todavía no cargó una descripción.';
+      document.getElementById('heroCategory').textContent = store.category || '—';
+      document.getElementById('heroContact').textContent = store.contact || '—';
+      document.getElementById('heroAddress').textContent = store.address || '—';
+      document.getElementById('infoName').textContent = store.name || '—';
+      document.getElementById('infoSlug').textContent = `/local/${store.slug || '—'}`;
+      document.getElementById('infoCategory').textContent = store.category || '—';
+      document.getElementById('infoContact').textContent = store.contact || '—';
+      document.getElementById('footerName').textContent = store.name || 'Local';
+
+      const heroImageWrap = document.getElementById('heroImageWrap');
+      if (store.logo_url) {
+        heroImageWrap.innerHTML = `<img src="${store.logo_url}" alt="${store.name}" onerror="this.parentElement.innerHTML='Sin imagen'">`;
+      } else {
+        heroImageWrap.textContent = 'Sin imagen';
+      }
+
+      const categoriesChips = document.getElementById('categoriesChips');
+      categoriesChips.innerHTML = '';
+      if (categories.length) {
+        categories.forEach(cat => {
+          const chip = document.createElement('div');
+          chip.className = 'chip';
+          chip.textContent = cat.name;
+          categoriesChips.appendChild(chip);
+        });
+      } else {
+        categoriesChips.innerHTML = '<div class="chip">Sin categorías</div>';
+      }
+
+      const hoursList = document.getElementById('hoursList');
+      hoursList.innerHTML = '<h4 style="margin-bottom:10px;">Días y horarios</h4>';
+      if (hours.length) {
+        hours.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'hours-row';
+          row.innerHTML = `<span>${dayName(item.day_of_week)}</span><strong>${item.is_open ? `${formatTime(item.open_time)} a ${formatTime(item.close_time)}` : 'Cerrado'}</strong>`;
+          hoursList.appendChild(row);
+        });
+
+        const today = new Date().getDay();
+        const todayHours = hours.find(h => h.day_of_week === today);
+        document.getElementById('openState').textContent = todayHours
+          ? (todayHours.is_open ? `Hoy abre de ${formatTime(todayHours.open_time)} a ${formatTime(todayHours.close_time)}` : 'Hoy está cerrado')
+          : 'Consultá horarios';
+      } else {
+        hoursList.innerHTML += '<p class="muted">Este local todavía no cargó horarios.</p>';
+      }
+
+      const menuByCategory = document.getElementById('menuByCategory');
+      menuByCategory.innerHTML = '';
+
+      if (!products.length) {
+        menuByCategory.innerHTML = '<div class="hours-card"><p class="muted">Este local todavía no cargó productos.</p></div>';
+        return;
+      }
+
+      const grouped = new Map();
+      products.forEach(product => {
+        const category = categories.find(c => c.id === product.category_id)?.name || 'Sin categoría';
+        if (!grouped.has(category)) grouped.set(category, []);
+        grouped.get(category).push(product);
+      });
+
+      grouped.forEach((items, categoryName) => {
+        const block = document.createElement('div');
+        block.className = 'category-block';
+        const gridItems = items.map(product => `
+          <article class="product-card">
+            <div class="product-image">
+              ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" onerror="this.parentElement.innerHTML='Sin imagen'">` : 'Sin imagen'}
+            </div>
+            <div class="product-body">
+              <div class="product-title">
+                <h4>${product.name}</h4>
+                <span class="price">${money(product.price)}</span>
+              </div>
+              <p class="muted">${product.description || 'Sin descripción.'}</p>
+            </div>
+          </article>
+        `).join('');
+
+        block.innerHTML = `
+          <div class="section-head" style="margin-bottom:14px;">
+            <h3 style="font-size:1.18rem;">${categoryName}</h3>
+            <p>${items.length} producto(s)</p>
+          </div>
+          <div class="products-grid">${gridItems}</div>
+        `;
+        menuByCategory.appendChild(block);
+      });
+    }
+
+    boot();
+  </script>
+</body>
+</html>
