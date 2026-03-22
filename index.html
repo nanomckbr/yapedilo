@@ -382,7 +382,7 @@
             <div class="data-row"><span>Alta</span><strong>${formatDate(store.created_at)}</strong></div>
           </div>
           <div class="store-actions">
-            <a class="btn btn-secondary" href="/${store.slug || ''}">Ver local</a>
+            <a class="btn btn-secondary" href="local_publica_slug.html?slug=${store.slug || ''}">Ver local</a>
             <button class="btn btn-primary login-shortcut" data-email="">Ingresar</button>
           </div>
         `;
@@ -481,7 +481,12 @@
           slug
         });
 
-        if (insertError) throw insertError;
+        if (insertError) {
+          if (insertError.message?.toLowerCase().includes('duplicate') || insertError.message?.toLowerCase().includes('unique')) {
+            throw new Error('Ya existe un local con ese nombre o slug.');
+          }
+          throw insertError;
+        }
 
         showStatus(
           registerStatus,
@@ -517,7 +522,7 @@
 
         showStatus(loginStatus, 'Ingreso correcto. Redirigiendo al panel del local...', 'success');
         setTimeout(() => {
-          window.location.href = 'admin';
+          window.location.href = 'admin_con_boton_ver_web.html';
         }, 700);
       } catch (error) {
         console.error('Error en login:', error);
@@ -549,7 +554,7 @@
     async function redirectIfLoggedIn() {
       const { data } = await supabase.auth.getSession();
       if (data?.session) {
-        window.location.href = 'admin';
+        window.location.href = 'admin_con_boton_ver_web.html';
         return true;
       }
       return false;
