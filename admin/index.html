@@ -976,5 +976,33 @@
 
     boot();
   </script>
+
+<button id="verWebBtn" style="position:fixed;bottom:20px;right:20px;padding:12px 16px;border:none;border-radius:10px;background:#ff6b35;color:#fff;font-weight:bold;cursor:pointer;">
+Ver mi web
+</button>
+
+<script>
+document.getElementById('verWebBtn')?.addEventListener('click', async () => {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    alert("No estás logueado");
+    return;
+  }
+
+  const { data: store } = await supabase
+    .from('stores')
+    .select('*')
+    .eq('user_id', user.id)
+    .single();
+
+  if (!store) {
+    alert("No se encontró tu local");
+    return;
+  }
+
+  window.open(`local_publica_slug.html?slug=${store.slug}`, '_blank');
+});
+</script>
+
 </body>
 </html>
