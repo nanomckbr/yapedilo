@@ -240,6 +240,15 @@
               <input id="storeAddress" type="text" placeholder="Dirección del local" />
             </div>
             <div class="field">
+              <label for="storeServiceType">Modalidad del local</label>
+              <select id="storeServiceType">
+                <option value="">Seleccionar modalidad</option>
+                <option value="delivery">Delivery</option>
+                <option value="pickup">Retiro en local</option>
+                <option value="both">Delivery y retiro</option>
+              </select>
+            </div>
+            <div class="field">
               <label for="storeSlug">Slug público</label>
               <input id="storeSlug" type="text" placeholder="ya-pedilo" />
               <div class="hint">La futura web pública puede verse como: <strong>/local/tu-slug</strong></div>
@@ -415,6 +424,7 @@
     const storeCategoryInput = document.getElementById('storeCategory');
     const storeContactInput = document.getElementById('storeContact');
     const storeAddressInput = document.getElementById('storeAddress');
+    const storeServiceTypeInput = document.getElementById('storeServiceType');
     const storeSlugInput = document.getElementById('storeSlug');
     const storeLogoUrlInput = document.getElementById('storeLogoUrl');
     const storeDescriptionInput = document.getElementById('storeDescription');
@@ -437,6 +447,13 @@
 
     function money(v) {
       return `$${Number(v || 0).toLocaleString('es-AR')}`;
+    }
+
+    function formatServiceType(value) {
+      if (value === 'delivery') return 'Delivery';
+      if (value === 'pickup') return 'Retiro en local';
+      if (value === 'both') return 'Delivery y retiro';
+      return 'Sin modalidad';
     }
 
     function setNotice(el, type, message) {
@@ -512,7 +529,7 @@
       metricStoreName.textContent = data?.name || '—';
       metricSlug.textContent = data?.slug || '—';
       storeSlugMini.textContent = data?.slug ? `/local/${data.slug}` : 'Pendiente';
-      summaryBasic.textContent = `${data.name || 'Sin nombre'} · ${data.category || 'Sin rubro'} · ${data.contact || 'Sin contacto'} · ${data.address || 'Sin dirección'}`;
+      summaryBasic.textContent = `${data.name || 'Sin nombre'} · ${data.category || 'Sin rubro'} · ${formatServiceType(data.service_type)} · ${data.contact || 'Sin contacto'} · ${data.address || 'Sin dirección'}`;
       fillStoreForm();
       refreshPreview();
       return true;
@@ -524,6 +541,7 @@
       storeCategoryInput.value = s.category || '';
       storeContactInput.value = s.contact || '';
       storeAddressInput.value = s.address || '';
+      storeServiceTypeInput.value = s.service_type || '';
       storeSlugInput.value = s.slug || '';
       storeLogoUrlInput.value = s.logo_url || '';
       storeDescriptionInput.value = s.description || '';
@@ -537,6 +555,7 @@
         category: storeCategoryInput.value.trim(),
         contact: storeContactInput.value.trim(),
         address: storeAddressInput.value.trim(),
+        service_type: storeServiceTypeInput.value || null,
         slug: slugify(storeSlugInput.value.trim() || storeNameInput.value.trim()),
         logo_url: storeLogoUrlInput.value.trim() || null,
         description: storeDescriptionInput.value.trim() || null
@@ -909,12 +928,13 @@
       const name = storeNameInput.value.trim() || currentStore?.name || 'Tu local';
       const category = storeCategoryInput.value.trim() || currentStore?.category || 'Rubro';
       const address = storeAddressInput.value.trim() || currentStore?.address || 'Dirección';
+      const serviceType = formatServiceType(storeServiceTypeInput.value || currentStore?.service_type || '');
       const slug = slugify(storeSlugInput.value.trim() || currentStore?.slug || storeNameInput.value.trim() || 'pendiente');
       const logo = storeLogoUrlInput.value.trim() || currentStore?.logo_url || '';
       const description = storeDescriptionInput.value.trim() || currentStore?.description || 'Acá va la descripción del local cuando la cargues desde el panel.';
 
       document.getElementById('previewStoreName').textContent = name;
-      document.getElementById('previewStoreMeta').textContent = `${category} · ${address}`;
+      document.getElementById('previewStoreMeta').textContent = `${category} · ${serviceType} · ${address}`;
       document.getElementById('previewSlugText').textContent = `/local/${slug || 'pendiente'}`;
       document.getElementById('previewDescription').textContent = description;
 
@@ -955,7 +975,7 @@
     }
 
     [
-      storeNameInput, storeCategoryInput, storeAddressInput,
+      storeNameInput, storeCategoryInput, storeAddressInput, storeServiceTypeInput,
       storeSlugInput, storeLogoUrlInput, storeDescriptionInput
     ].forEach(input => input.addEventListener('input', refreshPreview));
 
@@ -983,24 +1003,12 @@ Ver mi web
 
 <script>
 document.getElementById('verWebBtn')?.addEventListener('click', async () => {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    alert("No estás logueado");
+  if (!currentStore || !currentStore.slug) {
+    alert('Primero cargá y guardá los datos de tu local.');
     return;
   }
 
-  const { data: store } = await supabase
-    .from('stores')
-    .select('*')
-    .eq('user_id', user.id)
-    .single();
-
-  if (!store) {
-    alert("No se encontró tu local");
-    return;
-  }
-
-  window.open(`local_publica_slug.html?slug=${store.slug}`, '_blank');
+  window.open(`local_publica_slug.html?slug=${currentStore.slug}`, '_blank');
 });
 </script>
 
